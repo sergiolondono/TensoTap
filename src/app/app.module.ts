@@ -17,6 +17,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth, AuthModule } from 'angular2-jwt';
 import { Http, RequestOptions } from '@angular/http';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -47,10 +48,12 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    AngularFontAwesomeModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'home', component: HomeComponent },
+      //{ path: '', component: HomeComponent },
+      { path: '', component: IndexacionComponent, canActivate: [AuthGuard]},
+      { path: 'home', component: HomeComponent },      
       { path: 'login', component: LoginComponent },
       { path: 'indexacion', component: IndexacionComponent, canActivate: [AuthGuard]  }
     ])

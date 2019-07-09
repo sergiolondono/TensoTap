@@ -1,10 +1,46 @@
-<h1>
-  Image Viewer
-</h1>
- <app-image-viewer [images]="[image]"
- [download]=true
- [showPDFOnlyOption]=true
-[idContainer]="'idOnHTML'"
-[loadOnInit]="true"></app-image-viewer>
+
+<div class="row">
+  <!-- <div class="col col-md-6">
+    <div>
+        <app-image-viewer [images]="[image]"
+        [fullscreen]=false
+        [download]=false
+        [showPDFOnlyOption]=false
+       [idContainer]="'idOnHTML'"
+       [loadOnInit]="true"
+       style="height: 100px; width: 150px;"></app-image-viewer>
+    </div>    
+  </div> -->
+  <div class="col col-12">
+      <div class="card">          
+          <div class="card-body">
+            <div class="row">
+                <div class="col col-6">
+                    <h5 class="card-title">Captura de Información</h5>                    
+                </div>
+                <div  class="col col-6 text-right">
+                    <button type="button" class="btn btn-outline-danger" aria-label="Left Align">                    
+                      <fa name="arrow-circle-right" size="2x"></fa> 
+                      </button>                    
+                </div>                       
+            </div>            
+          
+            <p class="card-text">Digite la información visualizada en la imagen</p>  
+            <div class="jumbotron">
+                <img [src]="converted_image" style="width:100%"
+                class="img-fluid img-thumbnail img-responsive mx-auto d-block rounded">
+              </div> 
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Ingrese información" 
+                autofocus="autofocus">
+              </div>   
+          </div>
+          <div class="card-footer">              
+              <a href="#" class="btn btn-success">Guardar</a>
+          </div>          
+        </div>      
+  </div>
+</div>
+
 
 
