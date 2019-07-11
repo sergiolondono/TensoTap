@@ -1,4 +1,4 @@
-import { AuthHttp } from 'angular2-jwt';
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RequestOptions } from '@angular/http';
@@ -10,7 +10,7 @@ export class LoginService {
 
   endpoint = 'http://localhost:56121/api/';
   token;
-  constructor(private http: HttpClient, private authHttp: AuthHttp) { }
+  constructor(private http: HttpClient) { }
   
   AuthenticatedUser(user) {
     let credentials = {
@@ -27,26 +27,6 @@ export class LoginService {
     },
     error => { console.log("Error", error) }
     );
-  }
-
-  GuardarLote(){
-    console.log("GuardarLote");
-    let lote = {
-      NIdentificacion: "1",
-      fecha: "06/10/2019",
-      idDocumento: 139245411,
-      identificadorfisico: "123",
-      idlote: 31771887,
-      idtempla: 1188,
-      idtipodoc: 1472,
-      tipodocumento: "Cedula de Ciudadania"
-      } 
-
-    return this.authHttp.post(this.endpoint + 'Lote/guardar', lote)
-    .subscribe(data => { console.log("POST Request Lote", data) },
-    error => { console.log("Error", error) }
-    );
-
   }
 
 }

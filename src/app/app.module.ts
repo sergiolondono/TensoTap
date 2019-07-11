@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ImageViewerModule } from 'ng2-image-viewer';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,16 +14,15 @@ import { IndexacionComponent } from './indexacion/indexacion.component';
 
 import { HomeComponent } from './home/home.component';
 import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
-import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
-import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth, AuthModule } from 'angular2-jwt';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { Http, RequestOptions } from '@angular/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { DynamicFormBuilderModule } from 'src/dynamic-form-builder/dynamic-form-builder.module';
+import { FieldsFunctionalityService } from './fields-functionality.service';
 
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp(new AuthConfig({
-    tokenGetter: (() => localStorage.getItem('token'))
-  }), http, options);
+export function tokenGetter() {
+  return localStorage.getItem('token');
 }
 
 @NgModule({
@@ -34,20 +34,19 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     BsNavbarComponent
   ],
   imports: [
-    AuthModule.forRoot(new AuthConfig({
-      headerName: 'Authorization',
-      headerPrefix: 'Bearer',
-      tokenName: 'token',
-      tokenGetter: (() => localStorage.getItem('token') || ''),
-      globalHeaders: [{ 'Content-Type': 'application/json' }],
-      noJwtError: true
-    })),
-
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:56121', '192.168.213.196:8080']
+      }
+    }),
     BrowserModule,
     ImageViewerModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
+    DynamicFormBuilderModule,
     AngularFontAwesomeModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
@@ -58,7 +57,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       { path: 'indexacion', component: IndexacionComponent, canActivate: [AuthGuard]  }
     ])
   ],
-  providers: [AuthService,  AuthHttp],
+  providers: [
+    FieldsFunctionalityService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

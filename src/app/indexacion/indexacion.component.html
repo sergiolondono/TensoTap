@@ -19,25 +19,32 @@
                     <h5 class="card-title">Captura de Información</h5>                    
                 </div>
                 <div  class="col col-6 text-right">
-                    <button type="button" class="btn btn-outline-danger" aria-label="Left Align">                    
+                    <button type="button" class="btn btn-outline-danger" 
+                    aria-label="Left Align" (click)="descartarDocumento()">                    
                       <fa name="arrow-circle-right" size="2x"></fa> 
                       </button>                    
                 </div>                       
             </div>            
           
             <p class="card-text">Digite la información visualizada en la imagen</p>  
-            <div class="jumbotron">
-                <img [src]="converted_image" style="width:100%"
+            <div *ngIf="converted_image">
+              <div class="jumbotron">
+                <!-- <img [src]="converted_image" style="width:100%" 
+                class="img-fluid img-thumbnail img-responsive mx-auto d-block rounded"> -->
+
+                <img [src]="converted_image"
                 class="img-fluid img-thumbnail img-responsive mx-auto d-block rounded">
               </div> 
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Ingrese información" 
-                autofocus="autofocus">
+              <div class="form-group" *ngIf="fields">
+                <!-- <input type="text" class="form-control" placeholder="Ingrese información" 
+                autofocus="autofocus"> -->
+                  <dynamic-form-builder (onSubmit)="guardarCaptura($event)" [fields]="fields">                    
+                  </dynamic-form-builder>
               </div>   
+            </div>            
           </div>
-          <div class="card-footer">              
-              <a href="#" class="btn btn-success">Guardar</a>
-          </div>          
+          <!-- <div class="card-footer">   
+          </div>           -->
         </div>      
   </div>
 </div>

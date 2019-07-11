@@ -7,8 +7,11 @@ import { map, catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DocumentsService {
+
+  public fields: any[];
+  
  //endpoint = 'https://jsonplaceholder.typicode.com/posts';
- endpoint = 'http://localhost:59357/api/Values';
+ endpoint = 'http://localhost:58654/api/Values/';
  httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -28,7 +31,7 @@ export class DocumentsService {
   }
   
   getDocument(id): Observable<any> {
-    return this.http.get(this.endpoint + 'products/' + id).pipe(
+    return this.http.get(this.endpoint + id).pipe(
       map(this.extractData));
   }
 
