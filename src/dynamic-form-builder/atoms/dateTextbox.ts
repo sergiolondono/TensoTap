@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FieldsFunctionalityService } from 'src/app/fields-functionality.service';
 
@@ -7,20 +7,26 @@ import { FieldsFunctionalityService } from 'src/app/fields-functionality.service
     selector: 'datetextbox',
     template: `
       <div [formGroup]="form">
-        <input autofocus="autofocus" *ngIf="!field.multiline" [attr.type]="field.type" class="form-control form-control-sm"  
+        <input #fieldCapture *ngIf="!field.multiline" [attr.type]="field.type" class="form-control form-control-sm"  
         [id]="field.name" [name]="field.name" [formControlName]="field.name" placeholder="{{field.placeHolder}}"
         maxlength="10" (keyup)="onInputChange($event)" (keydown)="this.fieldService.validateFieldRecapture(field, form)" 
         [(ngModel)]="copyDate">
       </div> 
     `
 })
-export class DateTextBoxComponent {
+export class DateTextBoxComponent implements AfterViewInit {
     @Input() field:any = {};
     @Input() form:FormGroup;
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }
 
     copyDate:any;
+    
+    @ViewChild('fieldCapture') vc: any;
+
+    ngAfterViewInit() {
+       this.vc.nativeElement.focus();
+    }
     
     constructor(public fieldService: FieldsFunctionalityService) {
     }

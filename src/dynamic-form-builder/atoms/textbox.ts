@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldsFunctionalityService } from 'src/app/fields-functionality.service';
 
@@ -7,7 +7,7 @@ import { FieldsFunctionalityService } from 'src/app/fields-functionality.service
     selector: 'textbox',
     template: `
       <div [formGroup]="form">
-        <input autofocus="autofocus" *ngIf="!field.multiline" autocomplete="off" [attr.type]="field.type" 
+        <input #fieldCapture *ngIf="!field.multiline" autocomplete="off" [attr.type]="field.type" 
         class="form-control form-control-sm"  [id]="field.name" [name]="field.name" 
         [formControlName]="field.name" maxlength="100"
         (keydown)="this.fieldService.validateFieldRecapture(field, form)"
@@ -18,12 +18,18 @@ import { FieldsFunctionalityService } from 'src/app/fields-functionality.service
       </div> 
     `
 })
-export class TextBoxComponent {
+export class TextBoxComponent implements AfterViewInit {
     @Input() field:any = {};
     @Input() form:FormGroup;
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }
     
+    @ViewChild('fieldCapture') vc: any;
+
+       ngAfterViewInit() {
+          this.vc.nativeElement.focus();
+       }
+       
     constructor(public fieldService: FieldsFunctionalityService) {      
     }
 

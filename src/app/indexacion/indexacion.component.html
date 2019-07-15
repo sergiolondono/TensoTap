@@ -38,13 +38,46 @@
               <div class="form-group" *ngIf="fields">
                 <!-- <input type="text" class="form-control" placeholder="Ingrese información" 
                 autofocus="autofocus"> -->
-                  <dynamic-form-builder (onSubmit)="guardarCaptura($event)" [fields]="fields">                    
+                  <dynamic-form-builder (onSubmit)="openModal($event)" [fields]="fields">                    
                   </dynamic-form-builder>
               </div>   
             </div>            
           </div>
           <!-- <div class="card-footer">   
           </div>           -->
+
+          <div class="row m-2">
+            <ng-template #modalConfirm let-modal>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+                </div>
+                <div class="modal-body">
+                    Usted ha diligenciado {{ campodiligenciado }}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+                    <button type="button" class="btn btn-primary" (click)="guardarCaptura()">Guardar</button>
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="row m-2">
+          <ng-template #modalDescarte let-modal>
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+              </div>
+              <div class="modal-body">
+                <ng-select *ngIf="motivosDescarte" [items]="motivosDescarte" bindLabel="motivo" 
+                bindValue="motivo" style="width: 100%" [(ngModel)]="motivoSelected" 
+                placeholder="Motivo Descarte"></ng-select>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="cerrarModalDescarte()">Cerrar</button>
+                  <button type="button" class="btn btn-primary" (click)="guardarMotivoDescarte()">Guardar</button>
+              </div>
+          </ng-template>
+      </div>
+
         </div>      
   </div>
 </div>

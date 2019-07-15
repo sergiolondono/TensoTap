@@ -23,7 +23,8 @@ export class DynamicFormBuilderComponent implements OnInit {
   @Output() onSubmit = new EventEmitter();
   @Input() fields: any[];
   form: FormGroup;
-  constructor() { }
+  constructor() { 
+  }
 
   returnValidations(field){
     field.validators = [];
@@ -57,6 +58,9 @@ export class DynamicFormBuilderComponent implements OnInit {
     }
 
     this.form = new FormGroup(fieldsCtrls);
-  }
+    // console.log(this.form);
+    // console.log(this.form.controls);
+    // console.log(this.form.controls["name"]);
+    }
 
 }

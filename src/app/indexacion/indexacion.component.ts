@@ -1,8 +1,20 @@
 import { ActivatedRoute } from "@angular/router";
-import { Component, OnInit, ViewChild, ElementRef, ViewChildren } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ViewChildren,
+  Directive,
+  AfterViewInit
+} from "@angular/core";
 import { DocumentsService } from "../documents.service";
 import { LoginService } from "../login.service";
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
+import { MensajesService } from "../mensajes.service";
+import { NgSelectComponent } from "@ng-select/ng-select";
+import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "app-indexacion",
@@ -16,34 +28,48 @@ export class IndexacionComponent implements OnInit {
   unsubcribe: any;
   public fields: any[];
   public form: FormGroup;
+  public formCaptured: any;
+  campodiligenciado: any;
+  esDescartado: boolean;
+  motivosDescarte: any = [];
+  motivoSelected: any;
+
+  @ViewChild("modalConfirm") modalconfirm: ElementRef;
+  @ViewChild("modalDescarte") modaldescarte: ElementRef;
+  modalOptions: NgbModalOptions = {};
 
   constructor(
     private documentService: DocumentsService,
     private route: ActivatedRoute,
-    private login: LoginService
-  ) {    
+    private login: LoginService,
+    private toastr: MensajesService,
+    private modalService: NgbModal
+  ) {
     this.getDocuments();
+    this.getMotivosDescarte();
   }
 
   title = "ImageViewerApp";
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   descartarDocumento() {
-    //if (confirm("Desea descartar el documento?")) { 
-      this.form.reset();    
-      this.getDocuments();
-      
-      // this.form.markAsPristine();
-      // this.form.markAsUntouched();
-    //}
+    this.esDescartado = true;
+    this.openModalDescarte();
+    // //if (confirm("Desea descartar el documento?")) {
+    // this.form.reset();
+    // this.getDocuments();
+    // // }
   }
 
-  guardarCaptura(f){
-    console.log("Form Submitted");
-    this.form.reset(); 
+  guardarCaptura() {
+    console.log(this.formCaptured.name);
+    this.toastr.showSuccess();
+    this.cerrarModal();
+    this.form.reset();
     this.getDocuments();
+    //if (confirm("Usted ha digitado: " + f.name + "?")) {
+    //}
   }
 
   getDocuments() {
@@ -59,9 +85,8 @@ export class IndexacionComponent implements OnInit {
       this.unsubcribe = this.form.valueChanges.subscribe(update => {
         this.fields = JSON.parse(update.fields);
       });
-
-      this.image = this.document.imageProccess.imageBytes;
-      this.converted_image = "data:image/jpeg;base64," + this.image;
+      this.converted_image =
+        "data:image/jpeg;base64," + this.document.imageProccess.imageBytes;
     });
   }
 
@@ -75,8 +100,46 @@ export class IndexacionComponent implements OnInit {
     });
   }
 
-  displayform(f) {
-    console.log(f);
+  openModal(f) {
+    this.fillModalOptions();
+    this.campodiligenciado = f.name;
+    this.formCaptured = f;
+    this.modalService.open(this.modalconfirm, this.modalOptions);
   }
 
+  cerrarModal() {
+    this.modalService.dismissAll(this.modalconfirm);
+  }
+
+  openModalDescarte() {
+    this.fillModalOptions();
+    this.modalService.open(this.modaldescarte, this.modalOptions);
+  }
+
+  cerrarModalDescarte() {
+    this.modalService.dismissAll(this.modaldescarte);
+  }
+
+  guardarMotivoDescarte() {
+    this.cerrarModalDescarte();
+    this.form.reset();
+    this.getDocuments();
+    console.log(this.motivoSelected);
+  }
+
+  private fillModalOptions() {
+    this.modalOptions.backdrop = "static";
+    this.modalOptions.keyboard = false;
+  }
+
+  getMotivosDescarte() {
+    this.motivosDescarte = [];
+    this.motivosDescarte = [
+      { motivo: "Imagen ilegible" },
+      { motivo: "Imagen en blanco" },
+      { motivo: "Imagen cortada" },
+      { motivo: "Opción no encontrada" },
+      { motivo: "Otro" }
+    ];
+  }
 }

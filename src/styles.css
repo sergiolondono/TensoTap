@@ -2,6 +2,8 @@
 
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css"; 
+@import '~ngx-toastr/toastr.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 body { 
     padding-top: 80px; 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterViewInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldsFunctionalityService } from 'src/app/fields-functionality.service';
 
@@ -6,17 +6,23 @@ import { FieldsFunctionalityService } from 'src/app/fields-functionality.service
     selector: 'dropdown',
     template: `
       <div [formGroup]="form">
-        <select autofocus="autofocus" autofocus="autofocus" class="form-control form-control-sm" [id]="field.name" [formControlName]="field.name"
+        <select #fieldCapture class="form-control form-control-sm" [id]="field.name" [formControlName]="field.name"
         (keydown)="this.fieldService.validateFieldRecapture(field, form)">
           <option *ngFor="let opt of field.options" [value]="opt.key">{{opt.label}}</option>
         </select>
       </div> 
     `
 })
-export class DropDownComponent {
+export class DropDownComponent implements AfterViewInit {
     @Input() field:any = {};
     @Input() form:FormGroup;
 
+    @ViewChild('fieldCapture') vc: any;
+
+    ngAfterViewInit() {
+       this.vc.nativeElement.focus();
+    }
+    
     constructor(public fieldService: FieldsFunctionalityService) {
 
     }
