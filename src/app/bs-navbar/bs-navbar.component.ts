@@ -8,8 +8,12 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./bs-navbar.component.css']
 })
 export class BsNavbarComponent implements OnInit {
+  userLogged;
+  public isCollapsed = true;
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService) { 
+    this.userLogged = localStorage.getItem('user');
+  }
 
   ngOnInit() {
   }

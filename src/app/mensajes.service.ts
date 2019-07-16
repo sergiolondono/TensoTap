@@ -7,20 +7,20 @@ import { ToastrService } from "ngx-toastr";
 export class MensajesService {
   constructor(private toastr: ToastrService) {}
 
-  showSuccess() {
-    this.toastr.success("", "Lote Guardado Exitosamente!");
+  showSuccess(mensaje) {
+    this.toastr.success("", mensaje);
   }
 
-  showSuccessDescarte() {
-    this.toastr.success("", "Documento Descartado Exitosamente!");
+  showSuccessDescarte(mensaje) {
+    this.toastr.success("", mensaje);
   }
 
-  showErrorDescarte() {
-    this.toastr.success("", "Error al descartar el documento!");
+  showErrorDescarte(mensaje) {
+    this.toastr.success("", mensaje);
   }
 
-  showError() {
-    this.toastr.error("", "Error al guardar el lote!");
+  showError(mensaje) {
+    this.toastr.error("", mensaje);
   }
 
   showWarning(message) {

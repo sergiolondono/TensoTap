@@ -2,7 +2,7 @@
   <a class="navbar-brand" routerLink="/">TensoTap</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" 
   data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" 
-  aria-expanded="false" aria-label="Toggle navigation">
+  aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
     <span class="navbar-toggler-icon"></span>
   </button>
   
@@ -20,12 +20,18 @@
         <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
           <ng-container>
           <a class="dropdown-item" routerLink="/indexacion">Indexación</a>
-          <a class="dropdown-item" (click)="authService.logout()">Log Out</a>
+          <!-- <a class="dropdown-item" (click)="authService.logout()">Log Out</a> -->
           </ng-container>
-
-
         </div>
       </li>
+      <li class="nav-item" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" routerLink="#">Bienvenido {{ userLogged }}</a>        
+      </li>
     </ul>
+    <form class="form-inline my-2 my-lg-0 ">
+        <!-- <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Salir</button> -->
+        <button class="btn btn-outline-primary my-2 my-sm-0 " 
+        (click)="authService.logout()">Salir</button>
+    </form>
   </div>
   </nav>

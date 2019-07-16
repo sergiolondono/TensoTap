@@ -22,6 +22,10 @@ import { Http, RequestOptions } from '@angular/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { DynamicFormBuilderModule } from 'src/dynamic-form-builder/dynamic-form-builder.module';
 import { FieldsFunctionalityService } from './fields-functionality.service';
+import { RecaptchaModule, 
+  // RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module,
+  RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -52,6 +56,8 @@ export function tokenGetter() {
     ReactiveFormsModule,
     DynamicFormBuilderModule,
     AngularFontAwesomeModule,
+    RecaptchaModule,
+    // RecaptchaV3Module,
     ToastrModule.forRoot({
       preventDuplicates: true,
       progressBar: true,
@@ -66,9 +72,13 @@ export function tokenGetter() {
       { path: 'indexacion', component: IndexacionComponent, canActivate: [AuthGuard]  }
     ])
   ],
-  providers: [
-    FieldsFunctionalityService
-  ],
+  providers: [{
+    provide: RECAPTCHA_SETTINGS,
+    useValue: {
+      siteKey: '6Lfe_K0UAAAAAAJGJY-QeSWIXkCzWHNBpQjj9HjO'
+    } as RecaptchaSettings,
+  }, 
+FieldsFunctionalityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

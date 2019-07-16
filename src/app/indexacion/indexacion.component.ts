@@ -15,6 +15,7 @@ import { ToastrService } from "ngx-toastr";
 import { MensajesService } from "../mensajes.service";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
+import { DescarteService } from "../descarte.service";
 
 @Component({
   selector: "app-indexacion",
@@ -23,6 +24,7 @@ import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
 })
 export class IndexacionComponent implements OnInit {
   document;
+  descartes;
   image;
   converted_image;
   unsubcribe: any;
@@ -40,13 +42,13 @@ export class IndexacionComponent implements OnInit {
 
   constructor(
     private documentService: DocumentsService,
+    private descarteService: DescarteService,
     private route: ActivatedRoute,
     private login: LoginService,
     private toastr: MensajesService,
     private modalService: NgbModal
   ) {
-    this.getDocuments();
-    this.getMotivosDescarte();
+    this.getDocuments();    
   }
 
   title = "ImageViewerApp";
@@ -55,6 +57,7 @@ export class IndexacionComponent implements OnInit {
 
   descartarDocumento() {
     this.esDescartado = true;
+    this.getMotivosDescarte();
     this.openModalDescarte();
     // //if (confirm("Desea descartar el documento?")) {
     // this.form.reset();
@@ -64,7 +67,7 @@ export class IndexacionComponent implements OnInit {
 
   guardarCaptura() {
     console.log(this.formCaptured.name);
-    this.toastr.showSuccess();
+    this.toastr.showSuccess("Captura guardada exitosamente!");
     this.cerrarModal();
     this.form.reset();
     this.getDocuments();
@@ -134,12 +137,26 @@ export class IndexacionComponent implements OnInit {
 
   getMotivosDescarte() {
     this.motivosDescarte = [];
-    this.motivosDescarte = [
-      { motivo: "Imagen ilegible" },
-      { motivo: "Imagen en blanco" },
-      { motivo: "Imagen cortada" },
-      { motivo: "Opción no encontrada" },
-      { motivo: "Otro" }
-    ];
+
+    let descartesLocal = JSON.parse(localStorage.getItem("descartesLocal"));
+    if (!descartesLocal) {
+      this.descarteService.getDescartes().subscribe((data: {}) => {
+        this.motivosDescarte = data;
+        localStorage.setItem("descartesLocal", JSON.stringify(this.motivosDescarte));
+      });
+     // this.motivosDescarte = this.descartes;
+    }
+    else{
+      this.motivosDescarte = descartesLocal;
+    }
+
+    
+    // this.motivosDescarte = [
+    //   { motivo: "Imagen ilegible" },
+    //   { motivo: "Imagen en blanco" },
+    //   { motivo: "Imagen cortada" },
+    //   { motivo: "Opción no encontrada" },
+    //   { motivo: "Otro" }
+    // ];
   }
 }

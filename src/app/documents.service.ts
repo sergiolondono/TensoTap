@@ -9,8 +9,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 export class DocumentsService {
 
   public fields: any[];
-  
- //endpoint = 'https://jsonplaceholder.typicode.com/posts';
+
  endpoint = 'http://localhost:58654/api/Values/';
  httpOptions = {
   headers: new HttpHeaders({

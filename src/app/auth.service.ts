@@ -30,10 +30,10 @@ export class AuthService {
     let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
 
-    this.authUser.AuthenticatedUser({
-      name : "admin",
-      password : "123456"
-    });
+    // this.authUser.AuthenticatedUser({
+    //   name : "admin",
+    //   password : "123456"
+    // });
 
     if(credentials.email == "sa@gmail.com" && credentials.password == "12")
     {
@@ -51,8 +51,9 @@ export class AuthService {
   }
 
   logout(){
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
+    // localStorage.removeItem('user');
+    // localStorage.removeItem('token');
+    localStorage.clear();
     this.router.navigateByUrl('/home');
   }
 
