@@ -27,7 +27,7 @@ export class IndexacionComponent implements OnInit {
   descartes;
   image;
   converted_image;
-  unsubcribe: any;
+  unsubscribe: any;
   public fields: any[];
   public form: FormGroup;
   public formCaptured: any;
@@ -85,7 +85,7 @@ export class IndexacionComponent implements OnInit {
       this.form = new FormGroup({
         fields: new FormControl(JSON.stringify(this.fields))
       });
-      this.unsubcribe = this.form.valueChanges.subscribe(update => {
+      this.unsubscribe = this.form.valueChanges.subscribe(update => {
         this.fields = JSON.parse(update.fields);
       });
       this.converted_image =
@@ -149,14 +149,5 @@ export class IndexacionComponent implements OnInit {
     else{
       this.motivosDescarte = descartesLocal;
     }
-
-    
-    // this.motivosDescarte = [
-    //   { motivo: "Imagen ilegible" },
-    //   { motivo: "Imagen en blanco" },
-    //   { motivo: "Imagen cortada" },
-    //   { motivo: "Opción no encontrada" },
-    //   { motivo: "Otro" }
-    // ];
   }
 }
