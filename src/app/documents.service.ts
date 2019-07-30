@@ -10,7 +10,8 @@ export class DocumentsService {
 
   public fields: any[];
 
- endpoint = 'http://localhost:58654/api/Values/';
+ endpoint = 'http://localhost:58654/api/Imagenes/';
+
  httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
