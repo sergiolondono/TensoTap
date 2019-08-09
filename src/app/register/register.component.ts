@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MensajesService } from '../mensajes.service';
+import { UserService } from '../user.service';
+import { UserRegister } from '../_models/userRegister';
 
 @Component({
   selector: 'app-register',
@@ -8,20 +10,27 @@ import { MensajesService } from '../mensajes.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private toastr: MensajesService,) { }
+  userRegister;
+
+  constructor(private toastr: MensajesService,
+   private userService: UserService) { }
 
   ngOnInit() {
   }
 
   registerUser(userData){
-    let name = userData.name;
-    let lastName = userData.lastName;
-    let identification = userData.identification;
-    let email = userData.email;
-    let password = userData.password;
+    this.userRegister = new UserRegister();
+    this.userRegister.userName = userData.userName;
+    this.userRegister.name = userData.name;
+    this.userRegister.lastName = userData.lastName;
+    this.userRegister.identification = userData.identification;
+    this.userRegister.email = userData.email;
+    this.userRegister.password = userData.password;
     
-    this.toastr.showSuccess(`${name} ${lastName} ${email} ${identification} ${password} REGISTRO EXITOSO!`);
-
+    if(this.userService.saveUser(this.userRegister))
+      this.toastr.showSuccess('REGISTRO EXITOSO!');
+    else  
+      this.toastr.showError('El registro no se guardo de forma correcta!')
   }
 
 }
