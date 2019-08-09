@@ -55,7 +55,7 @@ export class AuthService {
     // localStorage.removeItem('token');
     localStorage.clear();
     sessionStorage.clear();    
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/login');
   }
 
 }

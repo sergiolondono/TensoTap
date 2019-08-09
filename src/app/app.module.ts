@@ -25,6 +25,8 @@ import { FieldsFunctionalityService } from './fields-functionality.service';
 import { RecaptchaModule, 
   // RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module,
   RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+import { RegisterComponent } from './register/register.component';
+import { registerContentQuery } from '@angular/core/src/render3';
 
 
 export function tokenGetter() {
@@ -35,6 +37,7 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     LoginComponent,
+    RegisterComponent,
     IndexacionComponent,
     HomeComponent,
     BsNavbarComponent
@@ -69,6 +72,7 @@ export function tokenGetter() {
       { path: '', component: IndexacionComponent, canActivate: [AuthGuard]},
       { path: 'home', component: HomeComponent },      
       { path: 'login', component: LoginComponent },
+      { path: 'registrarse', component: RegisterComponent },
       { path: 'indexacion', component: IndexacionComponent, canActivate: [AuthGuard]  }
     ])
   ],
