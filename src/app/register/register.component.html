@@ -2,67 +2,109 @@
   <div class="image"></div>
   <div class="frm">
     <h3>Registrarse</h3>
-    <form #formRegister="ngForm" (ngSubmit)="registerUser(formRegister.value)">
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="registerUser(registerForm.value)"
+    >
       <div class="form-group">
         <input
           autofocus
-          ngModel
+          required
           type="text"
+          formControlName="userName"
           class="form-control"
-          id="userName"
-          name="userName"
-          placeholder="User Name"
+          placeholder="Nombre Usuario"
+          [ngClass]="{ 'is-invalid': submitted && f.userName.errors }"
         />
+        <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+          <div *ngIf="f.userName.errors.required">
+            Nombre Usuario es obligatorio
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <input
-          ngModel
+          required
           type="text"
+          formControlName="name"
           class="form-control"
-          id="name"
-          name="name"
-          placeholder="Nombres"
+          placeholder="Nombre(s)"
+          [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
         />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">
+            Nombre(s) es obligatorio
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <input
-          ngModel
-          type="email"
+          required
+          type="text"
+          formControlName="lastName"
           class="form-control"
-          id="lastName"
-          name="lastName"
-          placeholder="Apellidos"
+          placeholder="Apellido(s)"
+          [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
         />
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+          <div *ngIf="f.lastName.errors.required">
+            Apellido(s) es obligatorio
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <input
-          ngModel
+          required
           type="email"
+          formControlName="email"
           class="form-control"
-          id="email"
-          name="email"
           placeholder="Email"
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
         />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">
+            Email es obligatorio
+          </div>
+          <div *ngIf="f.email.errors.email">
+            Email debe ser una cuenta de correo válida
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <input
-          ngModel
+          required
           type="text"
+          formControlName="identification"
           class="form-control"
-          id="identification"
-          name="identification"
           placeholder="Número de cédula"
+          [ngClass]="{ 'is-invalid': submitted && f.identification.errors }"
         />
+        <div
+          *ngIf="submitted && f.identification.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.identification.errors.required">
+            Apellido(s) es obligatorio
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <input
-          ngModel
+          required
           type="password"
+          formControlName="password"
           class="form-control"
-          id="password"
-          name="password"
           placeholder="Password"
+          [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
         />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">
+            Apellido(s) es obligatorio
+          </div>
+          <div *ngIf="f.password.errors.minlength">
+            Password debe tener al menos 6 caracteres
+          </div>
+        </div>
       </div>
       <button type="submit" class="btn btn-primary">Enviar</button>
     </form>

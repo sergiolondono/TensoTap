@@ -28,7 +28,6 @@ import { RecaptchaModule,
 import { RegisterComponent } from './register/register.component';
 import { registerContentQuery } from '@angular/core/src/render3';
 
-
 export function tokenGetter() {
   return localStorage.getItem('token');
 }

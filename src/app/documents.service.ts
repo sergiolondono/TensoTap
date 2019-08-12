@@ -1,12 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentsService {
+  @Input() field:any = {};
+  @Input() form:FormGroup;
+  get isValid() { return this.form.controls[this.field.name].valid; }
 
   public fields: any[];
 

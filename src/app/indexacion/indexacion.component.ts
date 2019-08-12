@@ -83,17 +83,14 @@ export class IndexacionComponent implements OnInit {
     else
       this.toastr.showError("La captura no se guardó de forma correcta!");
 
-    // this.toastr.showSuccess("Captura guardada exitosamente!");
     this.cerrarModal();
     this.form.reset();
     this.getDocuments();
-    //if (confirm("Usted ha digitado: " + f.name + "?")) {
-    //}
   }
 
   getDocuments() {
     this.document = "";
-    this.documentService.getDocuments('jm').subscribe((data: {}) => {
+    this.documentService.getDocuments(localStorage.getItem('user')).subscribe((data: {}) => {
       this.document = data;
 
       this.fields = this.document.fieldForm;
