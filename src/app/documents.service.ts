@@ -10,7 +10,7 @@ export class DocumentsService {
 
   public fields: any[];
 
- endpoint = 'http://localhost:58654/api/Imagenes/';
+ endpoint = 'http://localhost:58654/api/Imagenes';
 
  httpOptions = {
   headers: new HttpHeaders({
@@ -25,14 +25,27 @@ export class DocumentsService {
     return body || { };
   }
 
-  getDocuments(): Observable<any> {
-    return this.http.get(this.endpoint).pipe(
+  getDocuments(usuario): Observable<any> {
+    return this.http.get(this.endpoint + '?usuario=usuario').pipe(
       map(this.extractData));
   }
   
   getDocument(id): Observable<any> {
     return this.http.get(this.endpoint + id).pipe(
       map(this.extractData));
+  }
+
+  saveDocument(infoCapturada) {
+    return this.http.post(this.endpoint, infoCapturada)
+    .subscribe(
+      data  => {
+      console.log("POST Request is successful ", data);
+      return true;
+      },
+      error  => {
+      console.log("Error", error);
+      return false;
+      });
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

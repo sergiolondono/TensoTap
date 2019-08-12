@@ -27,4 +27,8 @@ export class MensajesService {
     this.toastr.warning("", message);
   }
 
+  showInfo(message){
+    this.toastr.info("", message);
+  }
+
 }

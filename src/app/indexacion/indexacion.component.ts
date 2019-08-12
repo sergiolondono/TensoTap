@@ -1,3 +1,4 @@
+import { InfoCaptured } from './../_models/infoCaptured';
 import { ActivatedRoute } from "@angular/router";
 import {
   Component,
@@ -26,7 +27,9 @@ export class IndexacionComponent implements OnInit {
   document;
   descartes;
   image;
+  imageId;
   converted_image;
+  infoCaptured;
   unsubscribe: any;
   public fields: any[];
   public form: FormGroup;
@@ -66,8 +69,21 @@ export class IndexacionComponent implements OnInit {
   }
 
   guardarCaptura() {
-    console.log(this.formCaptured.name);
-    this.toastr.showSuccess("Captura guardada exitosamente!");
+    this.infoCaptured = new InfoCaptured();
+    this.infoCaptured.idImagen = this.imageId;
+    this.infoCaptured.infoCaptura = this.formCaptured.name;
+    this.infoCaptured.usuario = localStorage.getItem('user');
+
+    console.log('Captura: ' + this.formCaptured.name + 
+    ' ImagenId: ' + this.imageId +
+    ' Usuario: ' + this.infoCaptured.usuario);
+
+    if(this.documentService.saveDocument(this.infoCaptured))
+      this.toastr.showSuccess("Captura guardada exitosamente!");
+    else
+      this.toastr.showError("La captura no se guardó de forma correcta!");
+
+    // this.toastr.showSuccess("Captura guardada exitosamente!");
     this.cerrarModal();
     this.form.reset();
     this.getDocuments();
@@ -77,10 +93,12 @@ export class IndexacionComponent implements OnInit {
 
   getDocuments() {
     this.document = "";
-    this.documentService.getDocuments().subscribe((data: {}) => {
+    this.documentService.getDocuments('jm').subscribe((data: {}) => {
       this.document = data;
 
       this.fields = this.document.fieldForm;
+
+      this.imageId = this.document.imageProccess.id;
 
       this.form = new FormGroup({
         fields: new FormControl(JSON.stringify(this.fields))
