@@ -1,112 +1,135 @@
-<div class="container" id="registration-form">
-  <div class="image"></div>
-  <div class="frm">
-    <h3>Registrarse</h3>
-    <form
-      [formGroup]="registerForm"
-      (ngSubmit)="registerUser(registerForm.value)"
-    >
-      <div class="form-group">
-        <input
-          autofocus
-          required
-          type="text"
-          formControlName="userName"
-          class="form-control"
-          placeholder="Nombre Usuario"
-          [ngClass]="{ 'is-invalid': submitted && f.userName.errors }"
-        />
-        <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
-          <div *ngIf="f.userName.errors.required">
-            Nombre Usuario es obligatorio
+  <div class="jumbotron col-sm-8 offset-sm-2">
+      <h3 class="text-center">Registrarse</h3>
+  <div class="container col-sm-10">
+      
+      <hr class="my-4">
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="registerUser(registerForm.value)"
+      >
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">*</span>
+              </div>  
+          <input
+            autofocus
+            required
+            type="text"
+            formControlName="userName"
+            class="form-control"
+            placeholder="Nombre Usuario"
+            [ngClass]="{ 'is-invalid': submitted && f.userName.errors }"
+          />
+          <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+            <div *ngIf="f.userName.errors.required">
+              Nombre Usuario es obligatorio
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <input
-          required
-          type="text"
-          formControlName="name"
-          class="form-control"
-          placeholder="Nombre(s)"
-          [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
-        />
-        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-          <div *ngIf="f.name.errors.required">
-            Nombre(s) es obligatorio
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">*</span>
+              </div>            
+          <input
+            required
+            type="text"
+            formControlName="name"
+            class="form-control"
+            placeholder="Nombre(s)"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+          />
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">
+              Nombre(s) es obligatorio
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <input
-          required
-          type="text"
-          formControlName="lastName"
-          class="form-control"
-          placeholder="Apellido(s)"
-          [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
-        />
-        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-          <div *ngIf="f.lastName.errors.required">
-            Apellido(s) es obligatorio
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">*</span>
+              </div>  
+          <input
+            required
+            type="text"
+            formControlName="lastName"
+            class="form-control"
+            placeholder="Apellido(s)"
+            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+          />
+          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+            <div *ngIf="f.lastName.errors.required">
+              Apellido(s) es obligatorio
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <input
-          required
-          type="email"
-          formControlName="email"
-          class="form-control"
-          placeholder="Email"
-          [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-        />
-        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-          <div *ngIf="f.email.errors.required">
-            Email es obligatorio
-          </div>
-          <div *ngIf="f.email.errors.email">
-            Email debe ser una cuenta de correo válida
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <input
-          required
-          type="text"
-          formControlName="identification"
-          class="form-control"
-          placeholder="Número de cédula"
-          [ngClass]="{ 'is-invalid': submitted && f.identification.errors }"
-        />
-        <div
-          *ngIf="submitted && f.identification.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="f.identification.errors.required">
-            Apellido(s) es obligatorio
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">@</span>
+              </div>
+          <input
+            required
+            type="email"
+            formControlName="email"
+            class="form-control"
+            placeholder="Email"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+          />
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">
+              Email es obligatorio
+            </div>
+            <div *ngIf="f.email.errors.email">
+              Email debe ser una cuenta de correo válida
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <input
-          required
-          type="password"
-          formControlName="password"
-          class="form-control"
-          placeholder="Password"
-          [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-        />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-          <div *ngIf="f.password.errors.required">
-            Apellido(s) es obligatorio
-          </div>
-          <div *ngIf="f.password.errors.minlength">
-            Password debe tener al menos 6 caracteres
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">#</span>
+              </div>
+          <input
+            required
+            type="text"
+            formControlName="identification"
+            class="form-control"
+            placeholder="Número de cédula"
+            [ngClass]="{ 'is-invalid': submitted && f.identification.errors }"
+          />
+          <div
+            *ngIf="submitted && f.identification.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.identification.errors.required">
+                Número de cédula es obligatorio
+            </div>
           </div>
         </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
-  </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">.</span>
+              </div>
+          <input
+            required
+            type="password"
+            formControlName="password"
+            class="form-control"
+            placeholder="Password"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">
+              Apellido(s) es obligatorio
+            </div>
+            <div *ngIf="f.password.errors.minlength">
+              Password debe tener al menos 6 caracteres
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+      </form>
+     </div>
+   
 </div>
+
+
+ 

@@ -1,14 +1,12 @@
-/* html{
-    background: url("./background.jpg") no-repeat;
-	background-size: cover; 
-    min-height: 100%;
-} */
-
-body{
-	background-color: transparent;
+/* .registerDiv{
+	background-image: url('./background.jpg');
+	background-position:center;
+	background-repeat:no-repeat;
+	background-size:cover;
+	min-height: 100%;
 }
 
-#registration-form{
+ #registration-form{
 	max-width: 800px;
 	margin: 15px auto;
 }
@@ -76,4 +74,4 @@ body{
 		width: 100%;
 		margin-top: 20px;
 	}
-}
+} */

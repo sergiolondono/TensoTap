@@ -1,8 +1,8 @@
 export class UserRegister {
     userName: string;
-    name: string;
-    lastName: string;
-    identification: string;
+    nombre: string;
+    apellido: string;
+    identificacion: string;
     email: string;
     password: string;
 }

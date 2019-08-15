@@ -17,8 +17,7 @@ import { IndexacionComponent } from './indexacion/indexacion.component';
 import { HomeComponent } from './home/home.component';
 import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
 import { AuthGuard } from './auth-guard.service';
-import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
-import { Http, RequestOptions } from '@angular/http';
+import { JwtModule } from '@auth0/angular-jwt';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { DynamicFormBuilderModule } from 'src/dynamic-form-builder/dynamic-form-builder.module';
 import { FieldsFunctionalityService } from './fields-functionality.service';
@@ -26,7 +25,7 @@ import { RecaptchaModule,
   // RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module,
   RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 import { RegisterComponent } from './register/register.component';
-import { registerContentQuery } from '@angular/core/src/render3';
+import { AprobarUsuariosComponent } from './aprobar-usuarios/aprobar-usuarios.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -39,7 +38,8 @@ export function tokenGetter() {
     RegisterComponent,
     IndexacionComponent,
     HomeComponent,
-    BsNavbarComponent
+    BsNavbarComponent,
+    AprobarUsuariosComponent
   ],
   imports: [
     JwtModule.forRoot({
@@ -72,6 +72,7 @@ export function tokenGetter() {
       { path: 'home', component: HomeComponent },      
       { path: 'login', component: LoginComponent },
       { path: 'registrarse', component: RegisterComponent },
+      { path: 'aprobarusuarios', component: AprobarUsuariosComponent },
       { path: 'indexacion', component: IndexacionComponent, canActivate: [AuthGuard]  }
     ])
   ],
