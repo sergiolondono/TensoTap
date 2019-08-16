@@ -3,12 +3,14 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { map, catchError, tap } from "rxjs/operators";
 import { Observable, of, throwError } from "rxjs";
 import { MensajesService } from '../mensajes.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: "root"
 })
 export class UserService {
-  endpoint = "http://localhost:58654/api/Usuario/";
+  
+  endpoint = environment.APIEndpoint + 'Usuario/';
 
   constructor(private http: HttpClient,
     private toastr: MensajesService) {}

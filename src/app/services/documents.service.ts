@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class DocumentsService {
 
   public fields: any[];
 
- endpoint = 'http://localhost:58654/api/Imagenes';
+ endpoint = environment.APIEndpoint + 'Imagenes/';
 
  httpOptions = {
   headers: new HttpHeaders({

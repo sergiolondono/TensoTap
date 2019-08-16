@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

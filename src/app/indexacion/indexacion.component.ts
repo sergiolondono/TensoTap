@@ -9,7 +9,7 @@ import {
   Directive,
   AfterViewInit
 } from "@angular/core";
-import { DocumentsService } from "../documents.service";
+import { DocumentsService } from "../services/documents.service";
 import { LoginService } from "../login.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
