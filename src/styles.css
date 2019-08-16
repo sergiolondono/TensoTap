@@ -4,6 +4,8 @@
 @import '~ngx-toastr/toastr.css';
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
+@import "~font-awesome/css/font-awesome.css";
+
 body { 
     padding-top: 80px; 
 }

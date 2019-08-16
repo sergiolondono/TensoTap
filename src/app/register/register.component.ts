@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
     this.userRegister = new UserRegister();
     this.userRegister.userName = userData.userName;
     this.userRegister.nombre = userData.name;
-    this.userRegister.apellido = userData.lastName;
+    this.userRegister.apellidos = userData.lastName;
     this.userRegister.identificacion = userData.identification;
     this.userRegister.email = userData.email;
     this.userRegister.password = userData.password;
