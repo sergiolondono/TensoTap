@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { DataTablesModule } from 'angular-datatables';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -59,6 +60,7 @@ export function tokenGetter() {
     DynamicFormBuilderModule,
     AngularFontAwesomeModule,
     RecaptchaModule,
+    DataTablesModule,
     AngularFontAwesomeModule,
     // RecaptchaV3Module,
     ToastrModule.forRoot({
