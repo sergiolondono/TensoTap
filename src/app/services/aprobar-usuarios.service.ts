@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 
@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class AprobarUsuariosService {
 
   endpoint = environment.APIEndpoint + 'Administracion';
+  endpointUserRol = environment.APIEndpoint + 'UsuariosXRoles';
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +23,14 @@ export class AprobarUsuariosService {
   obtenerUsuarios(): Observable<any> {
     return this.http.get(this.endpoint).pipe(
       map(this.extractData));
+  }
+
+  guardarUsuarioXRol(usuarioxRol) {
+    return this.http.post(this.endpointUserRol, usuarioxRol)
+    .pipe(
+      tap((usuarioxRol) => { } ),
+      catchError(this.handle_Error)
+    );
   }
 
   handle_Error(error) {

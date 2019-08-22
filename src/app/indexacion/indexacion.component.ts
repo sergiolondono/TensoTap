@@ -68,7 +68,8 @@ export class IndexacionComponent implements OnInit {
     // // }
   }
 
-  guardarCaptura() {
+  guardarCaptura(f) {
+    this.formCaptured = f;
     this.infoCaptured = new InfoCaptured();
     this.infoCaptured.idImagen = this.imageId;
     this.infoCaptured.infoCaptura = this.formCaptured.name;

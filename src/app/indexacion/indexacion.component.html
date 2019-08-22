@@ -1,16 +1,5 @@
 
-<div class="row">
-  <!-- <div class="col col-md-6">
-    <div>
-        <app-image-viewer [images]="[image]"
-        [fullscreen]=false
-        [download]=false
-        [showPDFOnlyOption]=false
-       [idContainer]="'idOnHTML'"
-       [loadOnInit]="true"
-       style="height: 100px; width: 150px;"></app-image-viewer>
-    </div>    
-  </div> -->
+<div class="row" *ngIf="converted_image; else loading">
   <div class="col col-12">
       <div class="card">          
           <div class="card-body">
@@ -27,26 +16,19 @@
             </div>            
           
             <p class="card-text">Digite la información visualizada en la imagen</p>  
-            <div *ngIf="converted_image">
+            <div>
               <div class="jumbotron">
-                <!-- <img [src]="converted_image" style="width:100%" 
-                class="img-fluid img-thumbnail img-responsive mx-auto d-block rounded"> -->
-
                 <img [src]="converted_image"
                 class="img-fluid img-thumbnail img-responsive mx-auto d-block rounded">
               </div> 
               <div class="form-group" *ngIf="fields">
-                <!-- <input type="text" class="form-control" placeholder="Ingrese información" 
-                autofocus="autofocus"> -->
-                  <dynamic-form-builder (onSubmit)="openModal($event)" [fields]="fields">                    
+                  <dynamic-form-builder (onSubmit)="guardarCaptura($event)" [fields]="fields">                    
                   </dynamic-form-builder>
               </div>   
             </div>            
           </div>
-          <!-- <div class="card-footer">   
-          </div>           -->
 
-          <div class="row m-2">
+          <!-- <div class="row m-2">
             <ng-template #modalConfirm let-modal>
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
@@ -59,7 +41,7 @@
                     <button type="button" class="btn btn-primary" (click)="guardarCaptura()">Guardar</button>
                 </div>
             </ng-template>
-        </div>
+        </div> -->
 
         <div class="row m-2">
           <ng-template #modalDescarte let-modal>
@@ -82,5 +64,8 @@
   </div>
 </div>
 
+<ng-template #loading>
+    <loading></loading>
+</ng-template>
 
 

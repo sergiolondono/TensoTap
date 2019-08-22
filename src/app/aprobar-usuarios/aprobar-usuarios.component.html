@@ -1,16 +1,19 @@
+
 <div class="card">
   <div class="card-header text-center"><h3>Certificar registro de usuarios</h3></div>
   <div class="card-body">
     <table
-    #dataTable
-    *ngIf="usuariosAprobar"
-    class="table table-bordered table-hover table-striped"
-  ></table>
+    #dataTable    
+    class="table table-bordered table-hover table-striped">
+  </table>
 
   <div class="row m-2">
     <ng-template #modalAprobar let-modal>
       <div class="modal-header">
-        <h5 class="modal-title">Confirmación</h5>
+        <h5 class="modal-title">
+          Asignación de rol para: 
+          <span class="badge badge-success">{{ usuarioSelected.userName }}</span>
+        </h5>
       </div>
       <div class="modal-body">
         <ng-select
@@ -43,6 +46,8 @@
   </div>
   </div>
 </div>
+
+ <loading *ngIf="usuariosAprobar.length === 0"></loading>
 
 
   

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { AprobarUsuariosService } from "../services/aprobar-usuarios.service";
 import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
+import { MensajesService } from '../mensajes.service';
+import { UserXRol } from '../_models/UserXRol';
 
 declare var $;
 
@@ -14,6 +16,8 @@ export class AprobarUsuariosComponent implements OnInit {
   usuariosAprobar: any = [];
   roles: any = [];
   rolSelected: any;
+  usuarioSelected: any;
+  usuarioXrol;
 
   @ViewChild("dataTable") table;
   dataTable: any;
@@ -26,7 +30,8 @@ export class AprobarUsuariosComponent implements OnInit {
 
   constructor(
     private aprobarUsuarioService: AprobarUsuariosService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private toastr: MensajesService,) {
     this.obtenerUsuarios();
   }
 
@@ -47,6 +52,7 @@ export class AprobarUsuariosComponent implements OnInit {
 
   configDataTable(){
     this.dtOptions = { 
+      destroy: true,
       processing: true, 
       language: {
         processing: "Procesando...",
@@ -96,7 +102,8 @@ export class AprobarUsuariosComponent implements OnInit {
         const self = this;
         $('td', row).unbind('click');
         $('td', row).bind('click', () => {
-          console.log(data);
+          this.usuarioSelected = data;
+          console.log(this.usuarioSelected);
           self.modalService.open(this.modalAprobar, this.modalOptions);
         });
         return row;
@@ -112,6 +119,26 @@ export class AprobarUsuariosComponent implements OnInit {
   }
 
   guardarAsignacion() {
-    console.log(this.rolSelected);
+    this.usuarioXrol = new UserXRol();
+    this.usuarioXrol.userName = this.usuarioSelected.userName;
+    this.usuarioXrol.roleId = this.rolSelected;
+    this.usuarioXrol.usuarioCreacion = localStorage.getItem('user');
+    this.usuarioXrol.usuarioModificacion = localStorage.getItem('user');
+
+    this.aprobarUsuarioService.guardarUsuarioXRol(this.usuarioXrol).subscribe(result => {
+      this.toastr.showSuccess('REGISTRO EXITOSO!');
+
+      this.obtenerUsuarios();
+
+     }, (err) => {
+      this.toastr.showError(`El registro no se guardo de forma correcta! \n ${err}`);
+     });
+
+    this.cerrarModalAsignacion();    
+
+    console.log(this.usuarioXrol.userName + "\n" +
+      this.usuarioXrol.roleId + "\n" +
+      this.usuarioXrol.usuarioCreacion + "\n" + 
+      this.usuarioXrol.usuarioModificacion);
   }
 }

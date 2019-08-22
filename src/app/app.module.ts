@@ -27,6 +27,7 @@ import { RecaptchaModule,
   RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 import { RegisterComponent } from './register/register.component';
 import { AprobarUsuariosComponent } from './aprobar-usuarios/aprobar-usuarios.component';
+import { LoadingComponent } from './loading/loading.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -40,7 +41,8 @@ export function tokenGetter() {
     IndexacionComponent,
     HomeComponent,
     BsNavbarComponent,
-    AprobarUsuariosComponent
+    AprobarUsuariosComponent,
+    LoadingComponent
   ],
   imports: [
     JwtModule.forRoot({
