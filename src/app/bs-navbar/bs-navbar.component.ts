@@ -9,10 +9,14 @@ import { AuthService } from '../auth.service';
 })
 export class BsNavbarComponent implements OnInit {
   userLogged;
+  userConfigInit;
+
   public isCollapsed = true;
 
   constructor(public authService: AuthService) { 
-    this.userLogged = localStorage.getItem('user');
+    // this.userConfigInit = JSON.parse(localStorage.getItem('userConfigInit'));
+    // console.log(this.userConfigInit);
+    // this.userLogged = localStorage.getItem('user');
   }
 
   ngOnInit() {

@@ -12,13 +12,17 @@ import { tap, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+  endpoint = environment.APIEndpoint + 'Login/authenticate';
+  token;
+
   user$: Observable<any>;
   private currentUserSubject: BehaviorSubject<User>;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private authUser: LoginService) {
+    private authUser: LoginService,
+    private http: HttpClient) {
      }
 
   isAuthenticated(){
@@ -32,32 +36,25 @@ export class AuthService {
     let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
 
-    // this.authUser.AuthenticatedUser({
-    //   userName : credentials.email,
-    //   password : credentials.password
-    // });
+    this.authUser.AuthenticatedUser({
+      userName : credentials.usuario,
+      password : credentials.password
+    });
 
-
-    // return this.http.post(this.endpoint, {
-    //      userName : credentials.email,
-    //      password : credentials.password
-    //    })
-    // .subscribe(data => 
-    //   { 
-    //     this.token = data;
-    //     console.log("POST Request is successful", data) ;
-    //     localStorage.setItem('token', this.token); 
-    //     this.router.navigateByUrl('/indexacion');        
-    // },
-    // error => { console.log("Error", error) }
-    // );
-
-    // if(credentials.email == "sa@gmail.com" && credentials.password == "12")
-    // {
-    //   localStorage.setItem('user', credentials.email);
-    //   return true;
-    // }
-    // return false;
+    return this.http.post(this.endpoint, {
+         userName : credentials.usuario,
+         password : credentials.password
+       })
+    .subscribe(data => 
+      { 
+        this.token = data;
+        console.log("POST Request is successful", data);
+        localStorage.setItem('user', credentials.usuario);
+        // localStorage.setItem('token', this.token); 
+        this.router.navigateByUrl('/indexacion');        
+    },
+    error => { console.log("Error", error) }
+    );
   }
 
   handle_Error(error) {

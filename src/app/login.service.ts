@@ -1,11 +1,9 @@
-
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { MensajesService } from './mensajes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +11,10 @@ import { throwError } from 'rxjs';
 export class LoginService {
 
   endpoint = environment.APIEndpoint + 'Login/authenticate';
-  token;
+  data: any;
   constructor(private http: HttpClient,
-    private router: Router) { }
+    private router: Router,
+    private toastr: MensajesService,) { }
   
   AuthenticatedUser(user) {
     let credentials = {
@@ -23,21 +22,19 @@ export class LoginService {
       password : user.password     
     };
 
-    // return this.http.post(this.endpoint, credentials)
-    // .pipe(
-    //   tap((usuario) => { } ),
-    //   catchError(this.handle_Error)
-    // );
-
     return this.http.post(this.endpoint, credentials)
     .subscribe(data => 
       { 
-        this.token = data;
-        console.log("POST Request is successful", data) ;
-        localStorage.setItem('token', this.token); 
+        this.data = data;
+        console.log("POST Request is successful", data);
+        localStorage.setItem('initConfig', JSON.stringify(this.data));
+        localStorage.setItem('token', this.data[0].token); 
         this.router.navigateByUrl('/indexacion');        
     },
-    error => { console.log("Error", error) }
+    error => { 
+      this.toastr.showInfo('Usuario o contraseña inválida!');
+      console.log("Error", error) 
+    }
     );
   }
 
