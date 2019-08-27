@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { LoginService } from '../login.service';
 
 
 @Component({
@@ -13,10 +14,14 @@ export class BsNavbarComponent implements OnInit {
 
   public isCollapsed = true;
 
-  constructor(public authService: AuthService) { 
-    // this.userConfigInit = JSON.parse(localStorage.getItem('userConfigInit'));
-    // console.log(this.userConfigInit);
-    // this.userLogged = localStorage.getItem('user');
+  constructor(public authService: AuthService,
+    public loginService: LoginService) { 
+      // console.log(loginService.data);
+      // this.userConfigInit = JSON.stringify(loginService.data);
+    //this.userConfigInit = JSON.parse(localStorage.getItem('initConfig'));
+    //console.log(this.userConfigInit);
+    this.authService.UserMenu.subscribe(userMenu => (this.userConfigInit = userMenu))
+    this.authService.User.subscribe(userLogged => (this.userLogged = userLogged));       
   }
 
   ngOnInit() {

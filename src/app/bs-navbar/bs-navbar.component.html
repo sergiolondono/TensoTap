@@ -1,39 +1,48 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
   <a class="navbar-brand" routerLink="/">TensoTap</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" 
-  data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" 
-  aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarsExampleDefault"
+    aria-controls="navbarsExampleDefault"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    (click)="isCollapsed = !isCollapsed"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
-  
+
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
+      <li class="nav-item" *ngFor="let link of userConfigInit">
+        <div *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" [routerLink]="link.menu">{{ link.ruta }}</a>
+        </div>
+      </li>
 
-        <li class="nav-item" *ngFor="let link of userConfigInit">
-            <a class="nav-link" [routerLink]="link.menu">{{ link.ruta }}</a>
-          </li>
+      <li class="nav-item" *ngIf="!authService.isLoggedIn()">
+        <a class="nav-link" routerLink="/login">Autenticarse</a>
+      </li>
 
-        <li class="nav-item" *ngIf="!authService.isLoggedIn()">
-          <a class="nav-link" routerLink="/login">Autenticarse</a>
-        </li>
-      
-        <li class="nav-item" *ngIf="!authService.isLoggedIn()">
-          <a class="nav-link" routerLink="/registrarse">Registrarse</a>
-        </li>
+      <li class="nav-item" *ngIf="!authService.isLoggedIn()">
+        <a class="nav-link" routerLink="/registrarse">Registrarse</a>
+      </li>
 
-        <li ngbDropdown *ngIf="authService.isLoggedIn()" class="nav-item dropdown">
+      <!-- <li ngbDropdown *ngIf="authService.isLoggedIn()" class="nav-item dropdown">
             <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" 
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Administración
           </a>
             <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-              <ng-container>
-              <a class="dropdown-item" routerLink="/aprobarusuarios">Aprobar Usuarios</a>
+              <ng-container *ngFor="let link of userConfigInit">
+                <a class="dropdown-item" [routerLink]="link.menu">{{ link.ruta }}</a>
+                 <a class="dropdown-item" routerLink="/aprobarusuarios">Aprobar Usuarios</a> 
               </ng-container>
             </div>
-          </li>
+          </li> -->
 
-      <li ngbDropdown *ngIf="authService.isLoggedIn()" class="nav-item dropdown">
+      <!-- <li ngbDropdown *ngIf="authService.isLoggedIn()" class="nav-item dropdown">
         <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" 
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Opciones
@@ -41,18 +50,21 @@
         <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
           <ng-container>
           <a class="dropdown-item" routerLink="/indexacion">Indexación</a>
-          <!-- <a class="dropdown-item" (click)="authService.logout()">Log Out</a> -->
           </ng-container>
         </div>
-      </li>
+      </li> -->
       <li class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a class="nav-link" routerLink="#">Bienvenido {{ userLogged }}</a>        
+        <a class="nav-link" routerLink="#">Bienvenido {{ userLogged }}</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0 ">
-        <!-- <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Salir</button> -->
-        <button class="btn btn-outline-primary my-2 my-sm-0 " 
-        (click)="authService.logout()">Salir</button>
+      <!-- <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Salir</button> -->
+      <button
+        class="btn btn-outline-primary my-2 my-sm-0 "
+        (click)="authService.logout()"
+      >
+        <i class="fa fa-sign-out"></i> Salir
+      </button>
     </form>
   </div>
-  </nav>
+</nav>

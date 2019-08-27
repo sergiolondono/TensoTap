@@ -1,16 +1,51 @@
-<form class="form-signin" #f="ngForm" (ngSubmit)="signIn(f.value)">
-  <h2 class="form-signin-heading text-center">Ingresar</h2>
-  <div *ngIf="invalidLogin" class="alert alert-danger">Usuario o contraseña inválida</div>
-  <label for="inputUsuario" class="sr-only">Usuario</label>
-  <input type="text" id="inputUsuario" name="usuario" ngModel class="form-control" 
-  placeholder="Usuario" required autofocus>
-  <label for="inputPassword" class="sr-only">Password</label>
-  <input type="password" id="inputPassword" name="password" ngModel class="form-control" 
-  placeholder="Contraseña" required>
-  <re-captcha #captchaRef="reCaptcha" (resolved)="resolved($event)"></re-captcha>
-  <button *ngIf="checkCaptcha && checkCaptcha.length > 0" class="btn btn-lg btn-primary btn-block"
-     type="submit">Acceder</button>
-</form>
+<div class="col-sm-8 offset-sm-2">
+  <div class="jumbotron">
+    <h2 class="form-signin-heading text-center">Ingresar</h2>
+    <hr />
+    <form class="form-signin" #f="ngForm" (ngSubmit)="signIn(f.value)">
+      <div *ngIf="invalidLogin" class="alert alert-danger">
+        Usuario o contraseña inválida
+      </div>
+      <label for="inputUsuario" class="sr-only">Usuario</label>
+      <input
+        type="text"
+        id="inputUsuario"
+        name="usuario"
+        ngModel
+        class="form-control"
+        placeholder="Usuario"
+        required
+        autofocus
+      />
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input
+        type="password"
+        id="inputPassword"
+        name="password"
+        ngModel
+        class="form-control"
+        placeholder="Contraseña"
+        required
+      />
+      <re-captcha
+        #captchaRef="reCaptcha"
+        (resolved)="resolved($event)"
+      ></re-captcha>
+      <button
+        *ngIf="checkCaptcha && checkCaptcha.length > 0"
+        class="btn btn-lg btn-info btn-block"
+        type="submit"
+      >
+        Acceder
+      </button>
 
+      <div>
+        <a class="registro" routerLink="/registrarse">
+          <fa name="id-badge"></fa> Ingrese acá para registrarse
+        </a> 
+      </div>
+    </form>
+  </div>
+</div>
 
 <loading *ngIf="loading"></loading>

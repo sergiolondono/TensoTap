@@ -6,7 +6,7 @@ import { LoginService } from './login.service';
 
 import { User } from './_models/user';
 import { environment } from 'src/environments/environment';
-import { tap, catchError } from 'rxjs/operators';
+import 'rxjs/add/Observable/of';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,7 @@ import { tap, catchError } from 'rxjs/operators';
 export class AuthService {
   endpoint = environment.APIEndpoint + 'Login/authenticate';
   token;
+  userName: string;
 
   user$: Observable<any>;
   private currentUserSubject: BehaviorSubject<User>;
@@ -49,8 +50,8 @@ export class AuthService {
       { 
         this.token = data;
         console.log("POST Request is successful", data);
+        this.userName = credentials.usuario;
         localStorage.setItem('user', credentials.usuario);
-        // localStorage.setItem('token', this.token); 
         this.router.navigateByUrl('/indexacion');        
     },
     error => { console.log("Error", error) }
@@ -75,6 +76,15 @@ export class AuthService {
       return true;
 
     return false;
+  }
+
+  get UserMenu(){
+    console.log(this.token);
+    return Observable.of(this.token);
+  }
+
+  get User() {
+    return Observable.of(localStorage.getItem('user'));
   }
 
   logout(){

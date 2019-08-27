@@ -1,4 +1,4 @@
-<bs-navbar></bs-navbar>
+<bs-navbar *ngIf="auth.isLoggedIn()"></bs-navbar>
 
 <div class="container">
     <router-outlet></router-outlet>
