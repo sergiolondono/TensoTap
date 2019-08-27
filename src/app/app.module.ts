@@ -28,6 +28,7 @@ import { RecaptchaModule,
 import { RegisterComponent } from './register/register.component';
 import { AprobarUsuariosComponent } from './aprobar-usuarios/aprobar-usuarios.component';
 import { LoadingComponent } from './loading/loading.component';
+import { CalidadComponent } from './calidad/calidad.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -42,13 +43,14 @@ export function tokenGetter() {
     HomeComponent,
     BsNavbarComponent,
     AprobarUsuariosComponent,
-    LoadingComponent
+    LoadingComponent,
+    CalidadComponent
   ],
   imports: [
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:56121', '192.168.213.196:8080']
+        whitelistedDomains: ['localhost:58654', '192.168.213.196:8080']
       }
     }),
     BrowserModule,
@@ -64,7 +66,6 @@ export function tokenGetter() {
     RecaptchaModule,
     DataTablesModule,
     AngularFontAwesomeModule,
-    // RecaptchaV3Module,
     ToastrModule.forRoot({
       preventDuplicates: true,
       progressBar: true,
@@ -72,12 +73,14 @@ export function tokenGetter() {
     }),
     NgbModule.forRoot(),
     RouterModule.forRoot([
-      //{ path: '', component: HomeComponent },
-      { path: '', component: IndexacionComponent, canActivate: [AuthGuard]},
+      // { path: '', component: HomeComponent },
+      { path: '', component: CalidadComponent},
+      //{ path: '', component: IndexacionComponent, canActivate: [AuthGuard]},
       { path: 'home', component: HomeComponent },      
       { path: 'login', component: LoginComponent },
       { path: 'registrarse', component: RegisterComponent },
       { path: 'aprobarusuarios', component: AprobarUsuariosComponent },
+      { path: 'calidad', component: CalidadComponent },
       { path: 'indexacion', component: IndexacionComponent, canActivate: [AuthGuard]  }
     ])
   ],

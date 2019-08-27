@@ -79,7 +79,6 @@ export class AuthService {
   }
 
   get UserMenu(){
-    console.log(this.token);
     return Observable.of(this.token);
   }
 

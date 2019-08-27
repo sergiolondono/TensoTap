@@ -10,18 +10,16 @@ import { LoginService } from '../login.service';
 })
 export class BsNavbarComponent implements OnInit {
   userLogged;
-  userConfigInit;
+  userConfigInit: any[] = [];
 
   public isCollapsed = true;
 
   constructor(public authService: AuthService,
     public loginService: LoginService) { 
-      // console.log(loginService.data);
-      // this.userConfigInit = JSON.stringify(loginService.data);
-    //this.userConfigInit = JSON.parse(localStorage.getItem('initConfig'));
-    //console.log(this.userConfigInit);
-    this.authService.UserMenu.subscribe(userMenu => (this.userConfigInit = userMenu))
-    this.authService.User.subscribe(userLogged => (this.userLogged = userLogged));       
+    this.authService.User.subscribe(userLogged => (this.userLogged = userLogged))
+    this.authService.UserMenu.subscribe(userMenu => (this.userConfigInit = userMenu));
+    if(this.userConfigInit == undefined)
+      this.userConfigInit = JSON.parse(localStorage.getItem('initConfig'));     
   }
 
   ngOnInit() {

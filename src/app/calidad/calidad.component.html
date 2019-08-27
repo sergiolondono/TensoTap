@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col col-6">
+            <h5 class="card-title">Módulo de Calidad</h5>
+          </div>
+        </div>
+
+        <p class="card-text">
+          Valide la información capturada por los usuarios
+        </p>
+        <div>
+          <div class="jumbotron">
+            <img
+              class="img-fluid img-thumbnail img-responsive mx-auto d-block rounded"
+            />
+          </div>
+          <div class="form-group">
+            <!-- <dynamic-form-builder (onSubmit)="guardarCaptura($event)" [fields]="fields">                    
+                    </dynamic-form-builder> -->
+            <form #f="ngForm" (ngSubmit)="signIn(f.value)">
+              <div class="row col-sm-12 text-center">
+                <div class="col-sm-4">
+                  <input
+                    ngModel
+                    type="radio"
+                    name="usuario"
+                    value="usuario1"
+                    (click)="habilitarControl('')"
+                  />
+                  Usuario 1
+                </div>
+                <div class="col-sm-4">
+                  <input
+                    ngModel
+                    type="radio"
+                    name="usuario"
+                    value="usuario2"
+                    (click)="habilitarControl('')"
+                  />
+                  Usuario 2
+                </div>
+                <div class="col-sm-4">
+                  <input
+                    ngModel
+                    type="radio"
+                    name="usuario"
+                    value="usuarioCalidad"
+                    (click)="habilitarControl('calidad')"
+                  />
+                  Usuario Calidad
+                </div>
+              </div>
+
+              <div class="row col-sm-12 text-center">
+                <div class="col-sm-4">
+                  <label><i class="fa fa-id-card"></i> castaño</label>
+                </div>
+                <div class="col-sm-4">
+                  <label><i class="fa fa-id-card"></i> castano</label>
+                </div>
+                <div class="col-sm-4" *ngIf="capturaCalidad">
+                  <input
+                    autofocus
+                    ngModel
+                    type="text"
+                    class="form-control"
+                    name="inputCalidad"
+                    id="inputCalidad"
+                  />
+                </div>
+              </div>
+              <hr />
+              <div class="col-sm-4 offset-sm-4 text-center">
+                <button type="submit" class="btn btn-success btn-block">
+                  <i class="fa fa-check-circle"></i> Guardar
+                </button>
+              </div>
+            </form>
+
+            <table
+              #dataTable
+              class="table table-bordered table-hover table-striped"
+            ></table>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-2">
+        <ng-template #modalDescarte let-modal>
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar</button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <loading></loading>
+</ng-template>
