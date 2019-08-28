@@ -93,19 +93,26 @@ export class IndexacionComponent implements OnInit {
     this.document = "";
     this.documentService.getDocuments(localStorage.getItem('user')).subscribe((data: {}) => {
       this.document = data;
+      
+      if(this.document.fieldForm !== null && this.document.imageProccess !== null)
+      {
+        this.fields = this.document.fieldForm;
 
-      this.fields = this.document.fieldForm;
+        this.imageId = this.document.imageProccess.id;
+  
+        this.form = new FormGroup({
+          fields: new FormControl(JSON.stringify(this.fields))
+        });
+        this.unsubscribe = this.form.valueChanges.subscribe(update => {
+          this.fields = JSON.parse(update.fields);
+        });
+        this.converted_image =
+          "data:image/jpeg;base64," + this.document.imageProccess.imageBytes;
+      }
+      else{
+        this.toastr.showInfo("No hay imágenes para capturar!");
+      }
 
-      this.imageId = this.document.imageProccess.id;
-
-      this.form = new FormGroup({
-        fields: new FormControl(JSON.stringify(this.fields))
-      });
-      this.unsubscribe = this.form.valueChanges.subscribe(update => {
-        this.fields = JSON.parse(update.fields);
-      });
-      this.converted_image =
-        "data:image/jpeg;base64," + this.document.imageProccess.imageBytes;
     });
   }
 

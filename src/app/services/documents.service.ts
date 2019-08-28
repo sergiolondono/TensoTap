@@ -31,7 +31,7 @@ export class DocumentsService {
   }
 
   getDocuments(usuario): Observable<any> {
-    return this.http.get(this.endpoint + '?usuario=usuario').pipe(
+    return this.http.get(this.endpoint + '?usuario=' + usuario).pipe(
       map(this.extractData));
   }
   

@@ -3,101 +3,144 @@
     <div class="card">
       <div class="card-body">
         <div class="row">
-          <div class="col col-6">
-            <h5 class="card-title">Módulo de Calidad</h5>
+          <div class="col col-12">
+            <h3 class="card-title text-center">Módulo de Calidad</h3>
           </div>
         </div>
-
-        <p class="card-text">
-          Valide la información capturada por los usuarios
-        </p>
         <div>
-          <div class="jumbotron">
-            <img
-              class="img-fluid img-thumbnail img-responsive mx-auto d-block rounded"
-            />
+          <table
+            class="table 
+              table-striped 
+              table-hover 
+              table-bordered 
+              table-sm
+              table-responsive-sm"
+          >
+            <caption>
+              Listado de imagenes para validar
+            </caption>
+            <thead class="text-center">
+              <tr>
+                <th>Código Imagen</th>
+                <th>Imagen</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <ng-container *ngFor="let imagen of data">
+                <tr>
+                  <td>{{ imagen.idImagen }}</td>
+                  <td>
+                    <img
+                      [src]="imagen.ruta"
+                      class="img-fluid img-thumbnail img-responsive mx-auto d-block rounded"
+                    />
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-success btn-sm"
+                      (click)="validarCapturas(imagen)"
+                    >
+                      <i class="fa fa-eye"></i> Validar
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="m-2 modal-xl">
+        <ng-template #modalValidacion>
+          <div class="text-center m-2">
+            <h5>Validación</h5>
+            <hr />
           </div>
-          <div class="form-group">
-            <!-- <dynamic-form-builder (onSubmit)="guardarCaptura($event)" [fields]="fields">                    
-                    </dynamic-form-builder> -->
-            <form #f="ngForm" (ngSubmit)="signIn(f.value)">
-              <div class="row col-sm-12 text-center">
-                <div class="col-sm-4">
-                  <input
-                    ngModel
-                    type="radio"
-                    name="usuario"
-                    value="usuario1"
-                    (click)="habilitarControl('')"
-                  />
-                  Usuario 1
-                </div>
-                <div class="col-sm-4">
-                  <input
-                    ngModel
-                    type="radio"
-                    name="usuario"
-                    value="usuario2"
-                    (click)="habilitarControl('')"
-                  />
-                  Usuario 2
-                </div>
-                <div class="col-sm-4">
-                  <input
-                    ngModel
-                    type="radio"
-                    name="usuario"
-                    value="usuarioCalidad"
-                    (click)="habilitarControl('calidad')"
-                  />
-                  Usuario Calidad
-                </div>
+          <div class="modal-body">
+            <img
+              [src]="imagenValidar"
+              class="img-fluid 
+                img-thumbnail 
+                img-responsive 
+                mx-auto 
+                d-block 
+                rounded"
+            />
+
+            <form #f="ngForm" (ngSubmit)="validar(f.value)">
+                <table class="table table-hover table-striped table-bordered table-sm m-2">
+                  <thead class="text-center">
+                    <tr>
+                      <th><i class="fa fa-user"></i> Usuario</th>
+                      <th><i class="fa fa-id-card"></i> Captura</th>
+                      <th>Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <ng-container *ngFor="let info of dataDetalle">
+                      <tr>
+                        <td>{{ info.usuarioCaptura }}</td>
+                        <td>{{ info.informacionCaptura }}</td>
+                        <td>
+                          <input
+                            ngModel
+                            type="radio"
+                            name="usuario"
+                            [value]="info.informacionCaptura"
+                            (click)="habilitarControl('')"
+                          />
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+
+              <div class="col-sm-12 m-2">
+                <input
+                  ngModel
+                  type="radio"
+                  name="usuario"
+                  value="usuarioCalidad"
+                  (click)="habilitarControl('calidad')"
+                />
+                Usuario Calidad
               </div>
 
-              <div class="row col-sm-12 text-center">
-                <div class="col-sm-4">
-                  <label><i class="fa fa-id-card"></i> castaño</label>
-                </div>
-                <div class="col-sm-4">
-                  <label><i class="fa fa-id-card"></i> castano</label>
-                </div>
-                <div class="col-sm-4" *ngIf="capturaCalidad">
-                  <input
-                    autofocus
-                    ngModel
-                    type="text"
-                    class="form-control"
-                    name="inputCalidad"
-                    id="inputCalidad"
-                  />
-                </div>
+              <div class="col-sm-12 m-2" *ngIf="capturaCalidad">
+                <input
+                  autofocus
+                  ngModel
+                  type="text"
+                  class="form-control"
+                  name="inputCalidad"
+                  id="inputCalidad"
+                />
               </div>
+
               <hr />
-              <div class="col-sm-4 offset-sm-4 text-center">
+              <div class="col-sm-8 offset-sm-2 text-center">
                 <button type="submit" class="btn btn-success btn-block">
                   <i class="fa fa-check-circle"></i> Guardar
                 </button>
               </div>
             </form>
-
-            <table
-              #dataTable
-              class="table table-bordered table-hover table-striped"
-            ></table>
-            
           </div>
-        </div>
-      </div>
-
-      <div class="row m-2">
-        <ng-template #modalDescarte let-modal>
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
-          </div>
-          <div class="modal-body"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cerrarModal()"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="guardarValidacion()"
+            >
+              Guardar
+            </button>
           </div>
         </ng-template>
       </div>
