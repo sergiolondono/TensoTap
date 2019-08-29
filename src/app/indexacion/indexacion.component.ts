@@ -72,12 +72,13 @@ export class IndexacionComponent implements OnInit {
     this.formCaptured = f;
     this.infoCaptured = new InfoCaptured();
     this.infoCaptured.idImagen = this.imageId;
-    this.infoCaptured.infoCaptura = this.formCaptured.name;
-    this.infoCaptured.usuario = localStorage.getItem('user');
+    this.infoCaptured.informacionCaptura = this.formCaptured.name;
+    this.infoCaptured.usuarioCaptura = localStorage.getItem('user');
+    this.infoCaptured.esCapturaCalidad = false;
 
     console.log('Captura: ' + this.formCaptured.name + 
     ' ImagenId: ' + this.imageId +
-    ' Usuario: ' + this.infoCaptured.usuario);
+    ' Usuario: ' + this.infoCaptured.usuarioCaptura);
 
     if(this.documentService.saveDocument(this.infoCaptured))
       this.toastr.showSuccess("Captura guardada exitosamente!");

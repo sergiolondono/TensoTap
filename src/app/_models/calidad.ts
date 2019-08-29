@@ -1,6 +1,6 @@
-export class InfoCaptured {
+export class Calidad {
     idImagen: number;
     usuarioCaptura: string;
     informacionCaptura: string;
-    esCapturaCalidad: boolean;
+    esCapturaCalidad: boolean;    
 }
