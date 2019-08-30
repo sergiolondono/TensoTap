@@ -8,7 +8,7 @@ import {
   Directive
 } from "@angular/core";
 import { NgbModalOptions, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Calidad } from '../_models/calidad';
+import { Calidad } from "../_models/calidad";
 
 @Component({
   selector: "calidad",
@@ -83,36 +83,49 @@ export class CalidadComponent implements OnInit {
   }
 
   guardarValidacion(f) {
-    if (f.usuario === "usuarioCalidad")
-    {
-      if(f.inputCalidad === "")
-      {
-        this.toastr.showWarning("Debe diligenciar el valor correcto en el campo de texto");
+    if (f.usuario === "usuarioCalidad") {
+      if (f.inputCalidad === "") {
+        this.toastr.showWarning(
+          "Debe diligenciar el valor correcto en el campo de texto"
+        );
         return false;
-      }     
+      }
       this.usuarioCorrecto = this.usuarioCalidad;
       this.capturaCorrecta = f.inputCalidad;
-    }      
+    }
 
-    if (f.usuario === "")
-    {
-      this.toastr.showWarning("Debe seleccionar al menos una de las capturas presentadas!");
+    if (f.usuario === "") {
+      this.toastr.showWarning(
+        "Debe seleccionar al menos una de las capturas presentadas!"
+      );
       return false;
     }
-    
+
     this.calidad = new Calidad();
     this.calidad.idImagen = this.imagenId;
     this.calidad.usuarioCaptura = this.usuarioCorrecto;
     this.calidad.informacionCaptura = this.capturaCorrecta;
-    this.calidad.esCapturaCalidad = this.capturaCalidad
+    this.calidad.esCapturaCalidad = this.capturaCalidad;
 
     console.log(`Usuario: ${this.usuarioCorrecto} \r 
     Captura: ${this.capturaCorrecta} \r
     esCapturaCalidad: ${this.capturaCalidad} \r
-    idImagen: ${ this.imagenId }` );
+    idImagen: ${this.imagenId}`);
+
+    this.calidadService.guardarCalidad(this.calidad).subscribe(
+      result => {
+        this.toastr.showSuccess("Captura guardada correctamente!");
+        console.log(result);
+        this.obtenerImagenesCalidad();
+      },
+      err => {
+        this.toastr.showError(
+          `El registro no se guardo de forma correcta! \n ${err}`
+        );
+      }
+    );
 
     this.cerrarModal();
-    this.toastr.showSuccess("Captura guardada correctamente!");
   }
 
   openModal() {

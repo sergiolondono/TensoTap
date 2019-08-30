@@ -30,6 +30,7 @@ export class IndexacionComponent implements OnInit {
   imageId;
   converted_image;
   infoCaptured;
+  error: boolean = false;
   unsubscribe: any;
   public fields: any[];
   public form: FormGroup;
@@ -114,6 +115,12 @@ export class IndexacionComponent implements OnInit {
         this.toastr.showInfo("No hay imágenes para capturar!");
       }
 
+    },
+    error => { 
+      if(error.status === 401){
+        this.error = true;
+        this.toastr.showWarning("Acceso no autorizado!");
+      };
     });
   }
 

@@ -1,5 +1,5 @@
 
-<div class="row" *ngIf="converted_image; else loading">
+<div class="row" *ngIf="(converted_image || error); else loading">
   <div class="col col-12">
       <div class="card">          
           <div class="card-body">

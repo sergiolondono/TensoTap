@@ -30,9 +30,24 @@ export class DocumentsService {
     return body || { };
   }
 
-  getDocuments(usuario): Observable<any> {
+  // getDocuments(usuario): Observable<any> {
+  //   return this.http.get(this.endpoint + '?usuario=' + usuario).pipe(
+  //     map(this.extractData));
+  // }
+
+   getDocuments(usuario): Observable<any> {
     return this.http.get(this.endpoint + '?usuario=' + usuario).pipe(
-      map(this.extractData));
+      tap(
+        data => { 
+          this.extractData
+          return true;
+        },
+        error => {
+          console.log("Error", error);
+          return false;
+        } 
+        )
+      );
   }
   
   getDocument(id): Observable<any> {
