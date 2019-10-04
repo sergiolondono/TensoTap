@@ -73,14 +73,14 @@ export function tokenGetter() {
     }),
     NgbModule.forRoot(),
     RouterModule.forRoot([
-      // { path: '', component: HomeComponent },
-      { path: '', component: CalidadComponent},
+       { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+      //{ path: '', component: CalidadComponent},
       //{ path: '', component: IndexacionComponent, canActivate: [AuthGuard]},
-      { path: 'home', component: HomeComponent },      
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },      
       { path: 'login', component: LoginComponent },
       { path: 'registrarse', component: RegisterComponent },
-      { path: 'aprobarusuarios', component: AprobarUsuariosComponent },
-      { path: 'calidad', component: CalidadComponent },
+      { path: 'aprobarusuarios', component: AprobarUsuariosComponent, canActivate: [AuthGuard] },
+      { path: 'calidad', component: CalidadComponent, canActivate: [AuthGuard] },
       { path: 'indexacion', component: IndexacionComponent, canActivate: [AuthGuard]  }
     ])
   ],

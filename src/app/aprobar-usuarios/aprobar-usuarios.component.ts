@@ -31,11 +31,11 @@ export class AprobarUsuariosComponent implements OnInit {
   constructor(
     private aprobarUsuarioService: AprobarUsuariosService,
     private modalService: NgbModal,
-    private toastr: MensajesService,) {
+    private toastr: MensajesService) {
     this.obtenerUsuarios();
   }
 
-  ngOnInit() {}
+  ngOnInit() {  }
 
   obtenerUsuarios() {
     this.aprobarUsuarioService.obtenerUsuarios().subscribe((data: {}) => {

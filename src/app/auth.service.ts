@@ -19,6 +19,8 @@ export class AuthService {
   user$: Observable<any>;
   private currentUserSubject: BehaviorSubject<User>;
 
+  loading: boolean = true;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -42,20 +44,22 @@ export class AuthService {
       password : credentials.password
     });
 
-    return this.http.post(this.endpoint, {
-         userName : credentials.usuario,
-         password : credentials.password
-       })
-    .subscribe(data => 
-      { 
-        this.token = data;
-        console.log("POST Request is successful", data);
-        this.userName = credentials.usuario;
-        localStorage.setItem('user', credentials.usuario);
-        this.router.navigateByUrl('/indexacion');        
-    },
-    error => { console.log("Error", error) }
-    );
+    // return this.http.post(this.endpoint, {
+    //      userName : credentials.usuario,
+    //      password : credentials.password
+    //    })
+    // .subscribe(data => 
+    //   { 
+    //     this.token = data;
+    //     // console.log("POST Request is successful", data);
+    //    // this.userName = credentials.usuario;
+    //    // localStorage.setItem('user', credentials.usuario);
+    //     // this.router.navigateByUrl('/indexacion');  
+    // },
+    // error => { 
+    //   console.log("Error", error); 
+    // }
+    // );    
   }
 
   handle_Error(error) {

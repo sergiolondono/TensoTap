@@ -38,6 +38,7 @@
     "jquery": "^3.4.1",
     "ng-recaptcha": "^4.3.0",
     "ng2-image-viewer": "^3.0.4",
+    "ngx-easy-table": "^11.0.0",
     "ngx-toastr": "^10.0.4",
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.5.2",
