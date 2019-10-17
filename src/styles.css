@@ -33,9 +33,6 @@ footer {
 .modal-calidad .modal-dialog {
   width: 90% !important;
   max-width: calc(90%);
+
 }
 
-.modal-content {
-  height: 600px !important;
-  max-height: 100%;
-}

@@ -57,119 +57,140 @@
 <div>
   <ng-template #modalValidacion>
     <div class="text-center m-2">
-      <h5>Validación</h5>
+      <h5>
+        Validación Campo:
+        <span class="badge badge-pill badge-info">{{ nombreCampo }}</span>
+        Página Número:
+        <span class="badge badge-pill badge-info">{{ NPagina }}</span>
+      </h5>
       <hr />
     </div>
     <div class="modal-body">
       <div class="row">
-        <div class="col col-8">
-            <img
-            [src]="imagenDocumento"
-            class="img-fluid 
-                img-thumbnail 
-                img-responsive 
-                mx-auto 
-                d-block 
-                rounded"
-          />
-
-            <div style="overflow-y: scroll;overflow-x: scroll;" #pdfV>
-                <pdf-viewer
-                    (keydown)="onKeyDown($event)" [src]="pdfSrc" [(page)]="page" 
-                    [rotation]="rotation" [original-size]="originalSize" [fit-to-page]="fitToPage" 
-                    (after-load-complete)="afterLoadComplete($event)" [zoom]="zoom" 
-                    [show-all]="showAll" [stick-to-page]="stickToPage"
-                    [render-text]="renderText" [external-link-target]="'blank'" 
-                    [autoresize]="autoresize" (error)="onError($event)" 
-                    (on-progress)="onProgress($event)" (page-rendered)="pageRendered($event)" 
-                    style="display: block; height: 65vh;">
-                </pdf-viewer>                
-            </div>    
+        <div *ngIf="existsPdfPage" class="col col-8">
+          <div style="overflow-y: scroll;overflow-x: scroll;" #pdfV>
+            <pdf-viewer
+              (keydown)="onKeyDown($event)"
+              [src]="pdfSrc"
+              [(page)]="page"
+              [rotation]="rotation"
+              [original-size]="originalSize"
+              [fit-to-page]="fitToPage"
+              (after-load-complete)="afterLoadComplete($event)"
+              [zoom]="zoom"
+              [show-all]="showAll"
+              [stick-to-page]="stickToPage"
+              [render-text]="renderText"
+              [external-link-target]="'blank'"
+              [autoresize]="autoresize"
+              (error)="onError($event)"
+              (on-progress)="onProgress($event)"
+              (page-rendered)="pageRendered($event)"
+              style="display: block; height: 65vh;"
+            >
+            </pdf-viewer>
+          </div>
         </div>
 
-        <div class="col col-4">
-          <img
-            [src]="imagenValidar"
-            class="img-fluid 
-                img-thumbnail 
-                img-responsive 
-                mx-auto 
-                d-block 
-                rounded"
-          />
-
-          <form #f="ngForm" (ngSubmit)="guardarValidacion(f.value)">
-            <table
-              class="table table-hover table-striped table-bordered table-sm m-2"
-            >
-              <thead class="text-center">
-                <tr>
-                  <th><i class="fa fa-user"></i> Usuario</th>
-                  <th><i class="fa fa-id-card"></i> Captura</th>
-                  <th>Acción</th>
-                </tr>
-              </thead>
-              <tbody class="text-center">
-                <ng-container *ngFor="let info of dataDetalle">
-                  <tr>
-                    <td>
-                      {{ info.usuarioCaptura }}
-                    </td>
-                    <td>
-                      {{ info.informacionCaptura }}
-                    </td>
-                    <td>
-                      <input
-                        ngModel
-                        type="radio"
-                        name="usuario"
-                        [value]="info.informacionCaptura"
-                        (click)="habilitarControl('', info)"
-                      />
-                    </td>
-                  </tr>
-                </ng-container>
-              </tbody>
-            </table>
-
-            <div class="col-sm-12 m-2">
-              <input
-                ngModel
-                type="radio"
-                name="usuario"
-                value="usuarioCalidad"
-                (click)="habilitarControl('calidad', null)"
-              />
-              {{ usuarioCalidad }}
-            </div>
-
-            <div class="col-sm-12 m-2" *ngIf="capturaCalidad">
-              <input
-                ngModel
-                autofocus
-                type="text"
-                class="form-control"
-                name="inputCalidad"
-                id="inputCalidad"
+        <div [ngClass]="existsPdfPage ? 'col col-4' : 'col col-12'">
+          <div class="row">
+            <div class="col col-10">
+              <img
+                [src]="imagenValidar"
+                class="img-fluid 
+                  img-thumbnail 
+                  img-responsive 
+                  mx-auto 
+                  d-block 
+                  rounded"
               />
             </div>
+            <div class="col col-2 text-right">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-info"
+                (click)="mostrarDocumentoCompleto()"
+              >
+                <fa name="file" size="2x"></fa>
+              </button>
+            </div>
+          </div>
 
-            <hr />
-           
-            <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  (click)="cerrarModal()"
+          <div class="row">
+            <div class="col col-12">
+              <form #f="ngForm" (ngSubmit)="guardarValidacion(f.value)">
+                <table
+                  class="table table-hover table-striped table-bordered table-sm m-2"
                 >
-                  Cerrar
-                </button>
-                <button type="submit" class="btn btn-primary">
-                  Guardar
-                </button>
-              </div>
+                  <thead class="text-center">
+                    <tr>
+                      <th><i class="fa fa-user"></i> Usuario</th>
+                      <th><i class="fa fa-id-card"></i> Captura</th>
+                      <th>Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <ng-container *ngFor="let info of dataDetalle">
+                      <tr>
+                        <td>
+                          {{ info.usuarioCaptura }}
+                        </td>
+                        <td>
+                          {{ info.informacionCaptura }}
+                        </td>
+                        <td>
+                          <input
+                            ngModel
+                            type="radio"
+                            name="usuario"
+                            [value]="info.informacionCaptura"
+                            (click)="habilitarControl('', info)"
+                          />
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
 
-          </form>
+                <div class="col-sm-12 m-2">
+                  <input
+                    ngModel
+                    type="radio"
+                    name="usuario"
+                    value="usuarioCalidad"
+                    (click)="habilitarControl('calidad', null)"
+                  />
+                  {{ usuarioCalidad }}
+                </div>
+
+                <div class="col-sm-12 m-2" *ngIf="capturaCalidad">
+                  <input
+                    ngModel
+                    autofocus
+                    type="text"
+                    class="form-control"
+                    name="inputCalidad"
+                    id="inputCalidad"
+                  />
+                </div>
+
+                <hr />
+
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="cerrarModal()"
+                  >
+                    Cerrar
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    Guardar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -44,6 +44,7 @@ export class CalidadComponent implements OnInit {
 
   capturaCalidad: boolean = false;
   pdfSrc: string | PDFSource | ArrayBuffer;
+  existsPdfPage: boolean = false;
     // variables para visor pdf
     error: any;
     page = 1; 
@@ -62,6 +63,9 @@ export class CalidadComponent implements OnInit {
     isOutlineShown = false;
 
     imagenDocumento;
+
+    nombreCampo;
+    NPagina;
 
   constructor(
     private toastr: MensajesService,
@@ -92,22 +96,25 @@ export class CalidadComponent implements OnInit {
         this.dataDetalle = data;
         this.imagenValidar = imagen.ruta;
         this.imagenId = imagen.idImagen;
+        this.NPagina = this.dataDetalle[0].NPagina;
+        this.nombreCampo = this.dataDetalle[0].nombreCampo;
 
-        console.log(this.dataDetalle[0].documento);
-        this.imagenDocumento = "data:image/jpeg;base64," + this.dataDetalle[0].documento;
-        var binaryImg = atob(this.dataDetalle[0].documento);
-        var length = binaryImg.length;
-        var arrayBuffer = new ArrayBuffer(length);
-        var uintArray = new Uint8Array(arrayBuffer);
+        // // PDF File
+        // var binaryImg = atob(this.dataDetalle[0].documento);
+        // var length = binaryImg.length;
+        // var arrayBuffer = new ArrayBuffer(length);
+        // var uintArray = new Uint8Array(arrayBuffer);
 
-        for (var i = 0; i < length; i++) {
-          uintArray[i] = binaryImg.charCodeAt(i);
-        }
-        var currentBlob = new Blob([uintArray], { type: "application/pdf" });
-        this.pdfSrc = URL.createObjectURL(currentBlob);
+        // for (var i = 0; i < length; i++) {
+        //   uintArray[i] = binaryImg.charCodeAt(i);
+        // }
+        // var currentBlob = new Blob([uintArray], { type: "application/tiff" });
+        // this.pdfSrc = URL.createObjectURL(currentBlob);
 
-        //renderiza la imagen de entrada a la pantalla
-        this.zoom = 1;
+        // //renderiza la imagen de entrada a la pantalla
+        // this.zoom = 1;
+        // this.existsPdfPage = true;
+        // // End PDF File
 
         this.openModal();
       });
@@ -201,4 +208,9 @@ export class CalidadComponent implements OnInit {
       );
     }
   }
+
+  mostrarDocumentoCompleto(){
+    this.existsPdfPage = !this.existsPdfPage;
+  }
+
 }
