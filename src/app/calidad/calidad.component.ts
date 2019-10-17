@@ -9,6 +9,12 @@ import {
 } from "@angular/core";
 import { NgbModalOptions, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Calidad } from "../_models/calidad";
+import {
+  PDFProgressData,
+  PdfViewerComponent,
+  PDFDocumentProxy,
+  PDFSource
+} from "ng2-pdf-viewer";
 
 @Component({
   selector: "calidad",
@@ -37,6 +43,25 @@ export class CalidadComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
 
   capturaCalidad: boolean = false;
+  pdfSrc: string | PDFSource | ArrayBuffer;
+    // variables para visor pdf
+    error: any;
+    page = 1; 
+    rotation = 0;
+    zoom = 1.0;
+    originalSize = true;
+    pdf: any;
+    renderText = true;
+    progressData: PDFProgressData;
+    isLoaded = false;
+    stickToPage = false;
+    showAll = false;
+    autoresize = true;
+    fitToPage = false;
+    outline: any[];
+    isOutlineShown = false;
+
+    imagenDocumento;
 
   constructor(
     private toastr: MensajesService,
@@ -54,7 +79,7 @@ export class CalidadComponent implements OnInit {
     this.calidadService.imagenesCalidad().subscribe((data: {}) => {
       this.data = data;
       for (let i = 0; i < this.data.length; i++) {
-        this.data[i].ruta = "data:image/jpeg;base64," + this.data[i].ruta;
+        this.data[i].ruta = "data:image/jpeg;base64," + this.data[i].Base64Img;
       }
     });
   }
@@ -67,6 +92,23 @@ export class CalidadComponent implements OnInit {
         this.dataDetalle = data;
         this.imagenValidar = imagen.ruta;
         this.imagenId = imagen.idImagen;
+
+        console.log(this.dataDetalle[0].documento);
+        this.imagenDocumento = "data:image/jpeg;base64," + this.dataDetalle[0].documento;
+        var binaryImg = atob(this.dataDetalle[0].documento);
+        var length = binaryImg.length;
+        var arrayBuffer = new ArrayBuffer(length);
+        var uintArray = new Uint8Array(arrayBuffer);
+
+        for (var i = 0; i < length; i++) {
+          uintArray[i] = binaryImg.charCodeAt(i);
+        }
+        var currentBlob = new Blob([uintArray], { type: "application/pdf" });
+        this.pdfSrc = URL.createObjectURL(currentBlob);
+
+        //renderiza la imagen de entrada a la pantalla
+        this.zoom = 1;
+
         this.openModal();
       });
   }
@@ -140,5 +182,23 @@ export class CalidadComponent implements OnInit {
   private fillModalOptions() {
     this.modalOptions.backdrop = "static";
     this.modalOptions.keyboard = false;
+    // this.modalOptions.size = "lg";
+    this.modalOptions.windowClass = "modal-calidad";
+  }
+
+  onProgress(progressData: PDFProgressData) {
+    this.progressData = progressData;
+    this.isLoaded = false;
+    this.error = null; // clear error
+  }
+
+    onError(error: any) {
+    this.error = error; // set error
+
+    if (error.name === "PasswordException") {
+      const password = prompt(
+        "This document is password protected. Enter the password:"
+      );
+    }
   }
 }

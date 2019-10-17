@@ -10,6 +10,8 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent implements OnInit {
 
+  date;
+
   constructor(private auth: AuthService, router: Router) {
     if(this.auth.isAuthenticated())
     {
@@ -19,5 +21,6 @@ export class AppComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.date = (new Date()).getFullYear();
   }
 }

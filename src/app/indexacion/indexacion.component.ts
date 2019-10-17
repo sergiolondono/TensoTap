@@ -108,8 +108,8 @@ export class IndexacionComponent implements OnInit {
         this.unsubscribe = this.form.valueChanges.subscribe(update => {
           this.fields = JSON.parse(update.fields);
         });
-        this.converted_image =
-          "data:image/jpeg;base64," + this.document.imageProccess.imageBytes;
+        this.converted_image = 
+          "data:image/jpeg;base64," +  this.document.imageProccess.imageBytes;
       }
       else{
         this.toastr.showInfo("No hay imágenes para capturar!");
@@ -158,7 +158,6 @@ export class IndexacionComponent implements OnInit {
     this.cerrarModalDescarte();
     this.form.reset();
     this.getDocuments();
-    console.log(this.motivoSelected);
   }
 
   private fillModalOptions() {

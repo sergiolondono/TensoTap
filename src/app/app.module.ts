@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { IndexacionComponent } from './indexacion/indexacion.component';
 
 import { HomeComponent } from './home/home.component';
@@ -55,6 +56,7 @@ export function tokenGetter() {
     }),
     BrowserModule,
     BrowserAnimationsModule,
+    PdfViewerModule,
     ImageViewerModule,
     HttpClientModule,
     AppRoutingModule,
@@ -73,8 +75,8 @@ export function tokenGetter() {
     }),
     NgbModule.forRoot(),
     RouterModule.forRoot([
-       { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-      //{ path: '', component: CalidadComponent},
+       //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
+      { path: '', component: CalidadComponent},
       //{ path: '', component: IndexacionComponent, canActivate: [AuthGuard]},
       { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },      
       { path: 'login', component: LoginComponent },
