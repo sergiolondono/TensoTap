@@ -30,6 +30,7 @@ import { RegisterComponent } from './register/register.component';
 import { AprobarUsuariosComponent } from './aprobar-usuarios/aprobar-usuarios.component';
 import { LoadingComponent } from './loading/loading.component';
 import { CalidadComponent } from './calidad/calidad.component';
+import { LoaderComponent } from './shared/loader/loader.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -45,7 +46,8 @@ export function tokenGetter() {
     BsNavbarComponent,
     AprobarUsuariosComponent,
     LoadingComponent,
-    CalidadComponent
+    CalidadComponent,
+    LoaderComponent
   ],
   imports: [
     JwtModule.forRoot({

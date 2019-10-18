@@ -109,10 +109,13 @@
               <button
                 type="button"
                 class="btn btn-sm btn-outline-info"
-                (click)="mostrarDocumentoCompleto()"
+                (click)="mostrarDocumentoCompleto(imagenId)"
+                *ngIf="!loading"
               >
                 <fa name="file" size="2x"></fa>
               </button>
+
+              <loading *ngIf="loading"></loading>
             </div>
           </div>
 
@@ -141,6 +144,7 @@
                         <td>
                           <input
                             ngModel
+                            id="info.informacionCaptura"
                             type="radio"
                             name="usuario"
                             [value]="info.informacionCaptura"
@@ -172,7 +176,13 @@
                     name="inputCalidad"
                     id="inputCalidad"
                   />
-                </div>
+
+                  <div class="form-group col-sm-12 m-2" *ngIf="fields">
+                    <dynamic-form-builder (onSubmit)="guardarCapturaCalidad($event)" [fields]="fields">                    
+                    </dynamic-form-builder>
+                  </div>   
+                  
+                </div>            
 
                 <hr />
 
@@ -184,7 +194,7 @@
                   >
                     Cerrar
                   </button>
-                  <button type="submit" class="btn btn-primary">
+                  <button  type="submit" id="btnGuardarCalidad" class="btn btn-primary">
                     Guardar
                   </button>
                 </div>
@@ -197,6 +207,3 @@
   </ng-template>
 </div>
 
-<ng-template #loading>
-  <loading></loading>
-</ng-template>

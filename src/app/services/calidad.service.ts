@@ -28,6 +28,11 @@ export class CalidadService {
       map(this.extractData));
   }
 
+  obtenerDocumentoCalidad(idImagen): Observable<any> {
+    return this.http.get(this.endpoint + 'obtenerDocumento?idImagen=' + idImagen).pipe(
+      map(this.extractData));
+  }
+
   guardarCalidad(calidad){
     return this.http.post(this.endpoint, calidad)
     .pipe(
