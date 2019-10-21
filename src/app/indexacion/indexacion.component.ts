@@ -55,7 +55,7 @@ export class IndexacionComponent implements OnInit {
     this.getDocuments();
   }
 
-  title = "ImageViewerApp";
+  title = "TensoTapApp";
 
   ngOnInit() {}
 
@@ -171,7 +171,7 @@ export class IndexacionComponent implements OnInit {
     if (this.motivoSelected === "1") {
       this.infoCaptured.informacionCaptura = "";
       this.infoCaptured.esDescarte = false;
-      
+
       if (this.documentService.saveDocument(this.infoCaptured))
         this.toastr.showSuccess("Captura guardada exitosamente!");
       else this.toastr.showError("La captura no se guardó de forma correcta!");

@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   date;
 
-  constructor(private auth: AuthService, router: Router) {
+  constructor(public auth: AuthService, router: Router) {
     if(this.auth.isAuthenticated())
     {
       let returnUrl = localStorage.getItem('returnUrl');
