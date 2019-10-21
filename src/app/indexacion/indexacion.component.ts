@@ -1,4 +1,4 @@
-import { InfoCaptured } from './../_models/infoCaptured';
+import { InfoCaptured } from "./../_models/infoCaptured";
 import { ActivatedRoute } from "@angular/router";
 import {
   Component,
@@ -52,7 +52,7 @@ export class IndexacionComponent implements OnInit {
     private toastr: MensajesService,
     private modalService: NgbModal
   ) {
-    this.getDocuments();    
+    this.getDocuments();
   }
 
   title = "ImageViewerApp";
@@ -74,17 +74,22 @@ export class IndexacionComponent implements OnInit {
     this.infoCaptured = new InfoCaptured();
     this.infoCaptured.idImagen = this.imageId;
     this.infoCaptured.informacionCaptura = this.formCaptured.name;
-    this.infoCaptured.usuarioCaptura = localStorage.getItem('user');
+    this.infoCaptured.usuarioCaptura = localStorage.getItem("user");
     this.infoCaptured.esCapturaCalidad = false;
+    this.infoCaptured.esDescarte = false;
 
-    console.log('Captura: ' + this.formCaptured.name + 
-    ' ImagenId: ' + this.imageId +
-    ' Usuario: ' + this.infoCaptured.usuarioCaptura);
+    console.log(
+      "Captura: " +
+        this.formCaptured.name +
+        " ImagenId: " +
+        this.imageId +
+        " Usuario: " +
+        this.infoCaptured.usuarioCaptura
+    );
 
-    if(this.documentService.saveDocument(this.infoCaptured))
+    if (this.documentService.saveDocument(this.infoCaptured))
       this.toastr.showSuccess("Captura guardada exitosamente!");
-    else
-      this.toastr.showError("La captura no se guardó de forma correcta!");
+    else this.toastr.showError("La captura no se guardó de forma correcta!");
 
     this.cerrarModal();
     this.form.reset();
@@ -93,35 +98,37 @@ export class IndexacionComponent implements OnInit {
 
   getDocuments() {
     this.document = "";
-    this.documentService.getDocuments(localStorage.getItem('user')).subscribe((data: {}) => {
-      this.document = data;
-      
-      if(this.document.fieldForm !== null && this.document.imageProccess !== null)
-      {
-        this.fields = this.document.fieldForm;
+    this.documentService.getDocuments(localStorage.getItem("user")).subscribe(
+      (data: {}) => {
+        this.document = data;
 
-        this.imageId = this.document.imageProccess.id;
-  
-        this.form = new FormGroup({
-          fields: new FormControl(JSON.stringify(this.fields))
-        });
-        this.unsubscribe = this.form.valueChanges.subscribe(update => {
-          this.fields = JSON.parse(update.fields);
-        });
-        this.converted_image = 
-          "data:image/jpeg;base64," +  this.document.imageProccess.imageBytes;
-      }
-      else{
-        this.toastr.showInfo("No hay imágenes para capturar!");
-      }
+        if (
+          this.document.fieldForm !== null &&
+          this.document.imageProccess !== null
+        ) {
+          this.fields = this.document.fieldForm;
 
-    },
-    error => { 
-      if(error.status === 401){
-        this.error = true;
-        this.toastr.showWarning("Acceso no autorizado!");
-      };
-    });
+          this.imageId = this.document.imageProccess.id;
+
+          this.form = new FormGroup({
+            fields: new FormControl(JSON.stringify(this.fields))
+          });
+          this.unsubscribe = this.form.valueChanges.subscribe(update => {
+            this.fields = JSON.parse(update.fields);
+          });
+          this.converted_image =
+            "data:image/jpeg;base64," + this.document.imageProccess.imageBytes;
+        } else {
+          this.toastr.showInfo("No hay imágenes para capturar!");
+        }
+      },
+      error => {
+        if (error.status === 401) {
+          this.error = true;
+          this.toastr.showWarning("Acceso no autorizado!");
+        }
+      }
+    );
   }
 
   getDocument() {
@@ -155,6 +162,29 @@ export class IndexacionComponent implements OnInit {
   }
 
   guardarMotivoDescarte() {
+
+    this.infoCaptured = new InfoCaptured();
+    this.infoCaptured.idImagen = this.imageId;
+    this.infoCaptured.usuarioCaptura = localStorage.getItem("user");
+    this.infoCaptured.esCapturaCalidad = false;
+
+    if (this.motivoSelected === "1") {
+      this.infoCaptured.informacionCaptura = "";
+      this.infoCaptured.esDescarte = false;
+      
+      if (this.documentService.saveDocument(this.infoCaptured))
+        this.toastr.showSuccess("Captura guardada exitosamente!");
+      else this.toastr.showError("La captura no se guardó de forma correcta!");
+    }
+    else {
+      this.infoCaptured.informacionCaptura = this.motivoSelected;
+      this.infoCaptured.esDescarte = true;
+
+      if (this.documentService.saveDocument(this.infoCaptured))
+      this.toastr.showSuccess("Captura guardada exitosamente!");
+      else this.toastr.showError("La captura no se guardó de forma correcta!");
+    }
+
     this.cerrarModalDescarte();
     this.form.reset();
     this.getDocuments();
@@ -172,11 +202,13 @@ export class IndexacionComponent implements OnInit {
     if (!descartesLocal) {
       this.descarteService.getDescartes().subscribe((data: {}) => {
         this.motivosDescarte = data;
-        localStorage.setItem("descartesLocal", JSON.stringify(this.motivosDescarte));
+        localStorage.setItem(
+          "descartesLocal",
+          JSON.stringify(this.motivosDescarte)
+        );
       });
-     // this.motivosDescarte = this.descartes;
-    }
-    else{
+      // this.motivosDescarte = this.descartes;
+    } else {
       this.motivosDescarte = descartesLocal;
     }
   }

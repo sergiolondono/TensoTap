@@ -16,6 +16,7 @@ import {
   PDFSource
 } from "ng2-pdf-viewer";
 import { FormGroup, FormControl } from '@angular/forms';
+import { Calidad } from '../_models/calidad';
 
 @Component({
   selector: "calidad",
@@ -106,6 +107,7 @@ export class CalidadComponent implements OnInit {
     this.dataDetalle = [];
     this.pdfSrc = "";
     this.existsPdfPage = false;
+    this.NPagina = "";
 
     this.calidadService
       .detalleImagenesCalidad(imagen.idImagen)
@@ -124,7 +126,7 @@ export class CalidadComponent implements OnInit {
 
         this.imagenValidar = imagen.ruta;
         this.imagenId = imagen.idImagen;
-        this.NPagina = this.dataDetalle[0].NPagina;
+        // this.NPagina = this.dataDetalle[0].NPagina;
         this.nombreCampo = this.dataDetalle[0].nombreCampo;
 
         this.openModal();
@@ -142,61 +144,45 @@ export class CalidadComponent implements OnInit {
     }
     else
       this.usuarioCorrecto = this.usuarioCalidad;
-
-      console.log(this.usuarioCorrecto + this.capturaCorrecta);
   }
 
 guardarCapturaCalidad(f){
-  console.log(f);
-  let element: HTMLElement =  document.getElementById('btnGuardarCalidad') as HTMLElement;
-  element.click();
+   this.capturaCorrecta = f.name;
+  // Grabar información en base de datos.
+  this.confirmarProcesoCalidad();  
 }
 
   guardarValidacion(f) {
-    console.log(f.usuario + f.inputCalidad);
-    // if (f.usuario === "usuarioCalidad") {
-    //   if (f.inputCalidad === "") {
-    //     this.toastr.showWarning(
-    //       "Debe diligenciar el valor correcto en el campo de texto"
-    //     );
-    //     return false;
-    //   }
-    //   this.usuarioCorrecto = this.usuarioCalidad;
-    //   this.capturaCorrecta = f.inputCalidad;
-    // }
+    if (f.usuario === "") {
+      this.toastr.showWarning(
+        "Debe seleccionar al menos una de las capturas presentadas!"
+      );
+      return false;
+    }
+    // Grabar información en base de datos.
+    this.confirmarProcesoCalidad();
+  }
 
-    // if (f.usuario === "") {
-    //   this.toastr.showWarning(
-    //     "Debe seleccionar al menos una de las capturas presentadas!"
-    //   );
-    //   return false;
-    // }
+  confirmarProcesoCalidad(){
+    this.calidad = new Calidad();
+    this.calidad.idImagen = this.imagenId;
+    this.calidad.usuarioCaptura = this.usuarioCorrecto;
+    this.calidad.informacionCaptura = this.capturaCorrecta;
+    this.calidad.esCapturaCalidad = this.capturaCalidad;
 
-    // this.calidad = new Calidad();
-    // this.calidad.idImagen = this.imagenId;
-    // this.calidad.usuarioCaptura = this.usuarioCorrecto;
-    // this.calidad.informacionCaptura = this.capturaCorrecta;
-    // this.calidad.esCapturaCalidad = this.capturaCalidad;
+    this.calidadService.guardarCalidad(this.calidad).subscribe(
+      result => {
+        this.toastr.showSuccess("Captura guardada correctamente!");
+        this.obtenerImagenesCalidad();
+      },
+      err => {
+        this.toastr.showError(
+          `El registro no se guardo de forma correcta! \n ${err}`
+        );
+      }
+    );
 
-    // console.log(`Usuario: ${this.usuarioCorrecto} \r 
-    // Captura: ${this.capturaCorrecta} \r
-    // esCapturaCalidad: ${this.capturaCalidad} \r
-    // idImagen: ${this.imagenId}`);
-
-    // this.calidadService.guardarCalidad(this.calidad).subscribe(
-    //   result => {
-    //     this.toastr.showSuccess("Captura guardada correctamente!");
-    //     console.log(result);
-    //     this.obtenerImagenesCalidad();
-    //   },
-    //   err => {
-    //     this.toastr.showError(
-    //       `El registro no se guardo de forma correcta! \n ${err}`
-    //     );
-    //   }
-    // );
-
-    // this.cerrarModal();
+    this.cerrarModal();
   }
 
   openModal() {
@@ -326,13 +312,15 @@ guardarCapturaCalidad(f){
 
   mostrarDocumentoCompleto(idImagen){
     this.loading = true;
+    this.NPagina = "";
     this.calidadService.obtenerDocumentoCalidad(idImagen) 
     .subscribe((data: {}) => {
         this.existsPdfPage = !this.existsPdfPage;
         this.imagenDocumento = data;
+        this.NPagina = this.imagenDocumento.NPagina;
         // console.log(this.imagenDocumento);
          // PDF File
-        var binaryImg = atob(this.imagenDocumento);
+        var binaryImg = atob(this.imagenDocumento.Base64ImgOrginal);
         var length = binaryImg.length;
         var arrayBuffer = new ArrayBuffer(length);
         var uintArray = new Uint8Array(arrayBuffer);

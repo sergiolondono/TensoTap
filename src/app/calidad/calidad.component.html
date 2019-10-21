@@ -60,8 +60,9 @@
       <h5>
         Validación Campo:
         <span class="badge badge-pill badge-info">{{ nombreCampo }}</span>
-        Página Número:
+        <span *ngIf="NPagina">  Página Número:
         <span class="badge badge-pill badge-info">{{ NPagina }}</span>
+      </span>
       </h5>
       <hr />
     </div>
@@ -168,14 +169,14 @@
                 </div>
 
                 <div class="col-sm-12 m-2" *ngIf="capturaCalidad">
-                  <input
+                  <!-- <input
                     ngModel
                     autofocus
                     type="text"
                     class="form-control"
                     name="inputCalidad"
                     id="inputCalidad"
-                  />
+                  /> -->
 
                   <div class="form-group col-sm-12 m-2" *ngIf="fields">
                     <dynamic-form-builder (onSubmit)="guardarCapturaCalidad($event)" [fields]="fields">                    
@@ -194,7 +195,7 @@
                   >
                     Cerrar
                   </button>
-                  <button  type="submit" id="btnGuardarCalidad" class="btn btn-primary">
+                  <button *ngIf="!this.capturaCalidad" type="submit" id="btnGuardarCalidad" class="btn btn-primary">
                     Guardar
                   </button>
                 </div>

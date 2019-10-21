@@ -3,4 +3,5 @@ export class InfoCaptured {
     usuarioCaptura: string;
     informacionCaptura: string;
     esCapturaCalidad: boolean;
+    esDescarte: boolean;
 }
