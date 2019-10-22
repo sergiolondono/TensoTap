@@ -1,27 +1,15 @@
 import { CalidadService } from "./../services/calidad.service";
 import { MensajesService } from "./../mensajes.service";
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  Directive,
-  Input
-} from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, Directive } from "@angular/core";
 import { NgbModalOptions, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import {
-  PDFProgressData,
-  PdfViewerComponent,
-  PDFDocumentProxy,
-  PDFSource
-} from "ng2-pdf-viewer";
+import { PDFProgressData, PdfViewerComponent, PDFDocumentProxy, PDFSource } from "ng2-pdf-viewer";
 import { FormGroup, FormControl } from '@angular/forms';
 import { Calidad } from '../_models/calidad';
 
 @Component({
   selector: "calidad",
   templateUrl: "./calidad.component.html",
-  styleUrls: ["./calidad.component.css"]
+  styleUrls: ["./calidad.component.scss"]
 })
 
 @Directive({ selector: "[myFocus]" })
@@ -211,7 +199,7 @@ guardarCapturaCalidad(f){
   }
 
   incrementZoom(amount: number) {
-    this.zoom += amount;
+    this.zoom += amount;    
   }
 
   rotate(angle: number) {
@@ -317,7 +305,7 @@ guardarCapturaCalidad(f){
     .subscribe((data: {}) => {
         this.existsPdfPage = !this.existsPdfPage;
         this.imagenDocumento = data;
-        this.NPagina = this.imagenDocumento.NPagina;
+        this.NPagina = Number(this.imagenDocumento.NPagina) + 1;
         // console.log(this.imagenDocumento);
          // PDF File
         var binaryImg = atob(this.imagenDocumento.Base64ImgOrginal);

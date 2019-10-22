@@ -27,17 +27,22 @@
         placeholder="Contraseña"
         required
       />
-      <re-captcha
+      <!-- <re-captcha
         #captchaRef="reCaptcha"
         (resolved)="resolved($event)"
-      ></re-captcha>
+      ></re-captcha> -->
       <button
+      class="btn btn-lg btn-info btn-block"
+      type="submit">
+      Acceder
+    </button>
+      <!-- <button
         *ngIf="checkCaptcha && checkCaptcha.length > 0"
         class="btn btn-lg btn-info btn-block"
         type="submit"
       >
         Acceder
-      </button>
+      </button> -->
 
       <div>
         <a class="registro" routerLink="/registrarse">

@@ -1,6 +1,7 @@
+import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ImageViewerModule } from 'ng2-image-viewer';
+import { InlineSVGModule } from 'ng-inline-svg';
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
@@ -37,15 +38,7 @@ export function tokenGetter() {
 }
 
 @NgModule({
-  entryComponents: [AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    IndexacionComponent,
-    HomeComponent,
-    BsNavbarComponent,
-    AprobarUsuariosComponent,
-    LoadingComponent,
-    LoaderComponent],
+
   declarations: [
     AppComponent,
     LoginComponent,
@@ -62,16 +55,16 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:58654', '192.168.213.196:8080', 'http://tensotap.eastus.cloudapp.azure.com']
+        whitelistedDomains: environment.whitelist
       }
     }),
     BrowserModule,
     BrowserAnimationsModule,
     PdfViewerModule,
-    ImageViewerModule,
     HttpClientModule,
     AppRoutingModule,
     NgSelectModule,
+    InlineSVGModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     DynamicFormBuilderModule,
@@ -86,7 +79,7 @@ export function tokenGetter() {
     }),
     NgbModule.forRoot(),
     RouterModule.forRoot([
-       { path: '', component: LoginComponent },
+       { path: '', component: HomeComponent, canActivate: [AuthGuard] },
       //{ path: '', component: CalidadComponent},
       //{ path: '', component: IndexacionComponent, canActivate: [AuthGuard]},
       { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },      
@@ -100,7 +93,8 @@ export function tokenGetter() {
   providers: [{
     provide: RECAPTCHA_SETTINGS,
     useValue: {
-      siteKey: '6Lfe_K0UAAAAAAJGJY-QeSWIXkCzWHNBpQjj9HjO'
+      siteKey: '6LeFyr4UAAAAAGpdi1v_HjE4Pk0IHHa_A0g2ZdLv'
+      //'6Lfe_K0UAAAAAAJGJY-QeSWIXkCzWHNBpQjj9HjO'
     } as RecaptchaSettings,
   }, 
 FieldsFunctionalityService],
