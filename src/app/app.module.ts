@@ -37,6 +37,15 @@ export function tokenGetter() {
 }
 
 @NgModule({
+  entryComponents: [AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    IndexacionComponent,
+    HomeComponent,
+    BsNavbarComponent,
+    AprobarUsuariosComponent,
+    LoadingComponent,
+    LoaderComponent],
   declarations: [
     AppComponent,
     LoginComponent,
@@ -53,7 +62,7 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:58654', '192.168.213.196:8080']
+        whitelistedDomains: ['localhost:58654', '192.168.213.196:8080', 'http://tensotap.eastus.cloudapp.azure.com']
       }
     }),
     BrowserModule,
@@ -77,8 +86,8 @@ export function tokenGetter() {
     }),
     NgbModule.forRoot(),
     RouterModule.forRoot([
-       //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
-      { path: '', component: CalidadComponent},
+       { path: '', component: LoginComponent },
+      //{ path: '', component: CalidadComponent},
       //{ path: '', component: IndexacionComponent, canActivate: [AuthGuard]},
       { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },      
       { path: 'login', component: LoginComponent },
