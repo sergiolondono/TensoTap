@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
 import { LoginService } from './login.service';
 
 import { User } from './_models/user';
 import { environment } from 'src/environments/environment';
-import 'rxjs/add/Observable/of';
+//import 'rxjs/add/Observable/of';
 
 @Injectable({
   providedIn: 'root'
@@ -83,11 +83,11 @@ export class AuthService {
   }
 
   get UserMenu(){
-    return Observable.of(this.token);
+    return of(this.token);
   }
 
   get User() {
-    return Observable.of(localStorage.getItem('user'));
+    return of(localStorage.getItem('user'));
   }
 
   logout(){

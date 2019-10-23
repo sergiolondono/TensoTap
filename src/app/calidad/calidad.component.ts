@@ -12,9 +12,6 @@ import { Calidad } from '../_models/calidad';
   styleUrls: ["./calidad.component.scss"]
 })
 
-@Directive({ selector: "[myFocus]" })
-
-
 export class CalidadComponent implements OnInit {
   @ViewChild(PdfViewerComponent) private pdfComponent: PdfViewerComponent;
   loading: boolean = false;

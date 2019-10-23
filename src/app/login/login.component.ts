@@ -29,6 +29,13 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.clearLocalStorageApp();
+  }
+
+  clearLocalStorageApp(){
+    localStorage.removeItem('initConfig');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   signIn(credentials) {   
