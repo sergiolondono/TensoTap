@@ -34,7 +34,6 @@ import { LoadingComponent } from './loading/loading.component';
 import { CalidadComponent } from './calidad/calidad.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 
-
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
