@@ -40,8 +40,8 @@ export class IndexacionComponent implements OnInit {
   motivosDescarte: any = [];
   motivoSelected: any;
 
-  @ViewChild("modalConfirm") modalconfirm: ElementRef;
-  @ViewChild("modalDescarte") modaldescarte: ElementRef;
+  @ViewChild("modalConfirm", {static: false}) modalconfirm: ElementRef;
+  @ViewChild("modalDescarte", {static: false}) modaldescarte: ElementRef;
   modalOptions: NgbModalOptions = {};
 
   constructor(

@@ -22,7 +22,7 @@ export class DateTextBoxComponent implements AfterViewInit {
 
     copyDate:any;
     
-    @ViewChild('fieldCapture') vc: any;
+    @ViewChild('fieldCapture', {static: false}) vc: any;
 
     ngAfterViewInit() {
        this.vc.nativeElement.focus();

@@ -11,18 +11,19 @@ import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from 'angular-datatables';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { IndexacionComponent } from './indexacion/indexacion.component';
-
-import { HomeComponent } from './home/home.component';
-import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
-import { AuthGuard } from './auth-guard.service';
-import { JwtModule } from '@auth0/angular-jwt';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { DynamicFormBuilderModule } from 'src/dynamic-form-builder/dynamic-form-builder.module';
+
+import { AuthGuard } from './auth-guard.service';
+import { JwtModule } from '@auth0/angular-jwt';
+
+import { IndexacionComponent } from './indexacion/indexacion.component';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
 import { FieldsFunctionalityService } from './fields-functionality.service';
 import { RecaptchaModule, 
   // RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module,
@@ -32,6 +33,7 @@ import { AprobarUsuariosComponent } from './aprobar-usuarios/aprobar-usuarios.co
 import { LoadingComponent } from './loading/loading.component';
 import { CalidadComponent } from './calidad/calidad.component';
 import { LoaderComponent } from './shared/loader/loader.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
