@@ -13,7 +13,7 @@ import { Calidad } from '../_models/calidad';
 })
 
 export class CalidadComponent implements OnInit {
-  @ViewChild(PdfViewerComponent, {static: false}) private pdfComponent: PdfViewerComponent;
+  @ViewChild(PdfViewerComponent, {read: false}) private pdfComponent: PdfViewerComponent;
   loading: boolean = false;
   
   data;
@@ -29,9 +29,9 @@ export class CalidadComponent implements OnInit {
   capturaCorrecta;
 
   modalOptions: NgbModalOptions = {};
-  @ViewChild("modalValidacion", {static: false}) modalValidacion: ElementRef;
+  @ViewChild("modalValidacion", {read: false}) modalValidacion: ElementRef;
 
-  @ViewChild("dataTable", {static: false}) table;
+  @ViewChild("dataTable", {read: false}) table;
   dataTable: any;
   dtOptions: DataTables.Settings = {};
 

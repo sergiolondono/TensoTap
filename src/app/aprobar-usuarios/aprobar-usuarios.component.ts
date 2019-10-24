@@ -19,13 +19,13 @@ export class AprobarUsuariosComponent implements OnInit {
   usuarioSelected: any;
   usuarioXrol;
 
-  @ViewChild("dataTable", {static: false}) table;
+  @ViewChild("dataTable", { read: false}) table;
   dataTable: any;
   dtOptions: DataTables.Settings = {};
 
   message = '';
 
-  @ViewChild("modalAprobar", {static: false}) modalAprobar: ElementRef;
+  @ViewChild("modalAprobar", { read: false}) modalAprobar: ElementRef;
   modalOptions: NgbModalOptions = {};
 
   constructor(

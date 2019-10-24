@@ -1,7 +1,8 @@
+import { Label } from 'ng2-charts';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
+
 
 
 @Component({

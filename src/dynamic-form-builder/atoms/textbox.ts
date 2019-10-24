@@ -24,7 +24,7 @@ export class TextBoxComponent implements AfterViewInit {
     get isValid() { return this.form.controls[this.field.name].valid; }
     get isDirty() { return this.form.controls[this.field.name].dirty; }
     
-    @ViewChild('fieldCapture', {static: false}) vc: any;
+    @ViewChild('fieldCapture', {read: false}) vc: any;
 
        ngAfterViewInit() {
           this.vc.nativeElement.focus();

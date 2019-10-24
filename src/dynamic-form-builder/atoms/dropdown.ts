@@ -17,7 +17,7 @@ export class DropDownComponent implements AfterViewInit {
     @Input() field:any = {};
     @Input() form:FormGroup;
 
-    @ViewChild('fieldCapture', {static: false}) vc: any;
+    @ViewChild('fieldCapture', {read: false}) vc: any;
 
     ngAfterViewInit() {
        this.vc.nativeElement.focus();
