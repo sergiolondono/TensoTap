@@ -93,8 +93,7 @@ export function tokenGetter() {
   providers: [{
     provide: RECAPTCHA_SETTINGS,
     useValue: {
-      siteKey: '6LeFyr4UAAAAAGpdi1v_HjE4Pk0IHHa_A0g2ZdLv'
-      //'6Lfe_K0UAAAAAAJGJY-QeSWIXkCzWHNBpQjj9HjO'
+      siteKey: '6Lf2LL8UAAAAAHgY8HFfDLznfrRraPSpfWnshCh1'
     } as RecaptchaSettings,
   }, 
 FieldsFunctionalityService],
