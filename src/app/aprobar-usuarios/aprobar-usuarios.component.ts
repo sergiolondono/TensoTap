@@ -42,9 +42,6 @@ export class AprobarUsuariosComponent implements OnInit {
       this.config = data;
       this.usuariosAprobar = this.config.UsuariosDB;
       this.roles = this.config.RolesDB;
-      console.log(this.usuariosAprobar);
-      console.log(this.roles);
-
       this.configDataTable();
       
     });

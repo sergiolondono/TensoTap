@@ -1,9 +1,8 @@
-import { Label } from 'ng2-charts';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
-
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { CapturasUsuarioService } from '../services/capturas-usuario.service';
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { DatatableService } from '../services/datatable.service';
 
 @Component({
   selector: 'app-home',
@@ -11,22 +10,44 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+capturaSelected: any;
+data;
+dataTable: any;
+dtOptions: DataTables.Settings = {};
+modalOptions: NgbModalOptions = {};
+@ViewChild("dataTable", { read: false}) table;
+@ViewChild("modalDetalleCaptura", { read: false}) modalDetalleCaptura: ElementRef;
 
-  constructor(private authService: AuthService) { }
+arrayCapturas: any[]=[];
 
-  ngOnInit() {  }
+  constructor(private capturasService: CapturasUsuarioService,
+    private modalService: NgbModal,
+    private datatableService: DatatableService) { }
 
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [];
+  ngOnInit() { 
+    this.ObtenerCapturas(true);
+   }
 
-  public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-  ];
+
+  ObtenerCapturas(mesActual) {
+    this.capturasService
+    .obtenerCapturasUsuario(localStorage.getItem('user'), mesActual)
+    .subscribe((data: {}) => {
+      this.data = [];
+      this.arrayCapturas = [];
+      this.data = data;
+      var keys = Object.keys(this.data[0]);      
+      for (let index = 0; index < keys.length; index++) {
+        this.arrayCapturas.push({ title: keys[index], data: keys[index]});         
+      }
+      this.configDataTable();
+    });
+  }
   
+  configDataTable(){    
+    this.dtOptions = this.datatableService.configDataTable(this.data, this.arrayCapturas);  
+    this.dataTable = $(this.table.nativeElement);
+    this.dataTable.DataTable(this.dtOptions);
+  }
+
 }

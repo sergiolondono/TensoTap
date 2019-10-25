@@ -14,3 +14,14 @@
     [chartType]="barChartType">
   </canvas>
 </div> -->
+
+<button class="btn btn-outline-success m-2" (click)="ObtenerCapturas(false)">
+Historial
+</button>
+<button class="btn btn-outline-primary m-2" (click)="ObtenerCapturas(true)">
+  Mes Actual
+  </button>
+<table
+    #dataTable    
+    class="table table-bordered table-hover table-striped">
+  </table>
