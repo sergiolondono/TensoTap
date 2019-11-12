@@ -76,7 +76,8 @@ export function tokenGetter() {
     ToastrModule.forRoot({
       preventDuplicates: true,
       progressBar: true,
-      closeButton: true
+      closeButton: true,
+      positionClass: "toast-top-left"
     }),
     NgbModule.forRoot(),
     RouterModule.forRoot([

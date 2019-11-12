@@ -77,8 +77,7 @@ export class LoginComponent implements OnInit {
               userMessage = "Error interno!";
               break;
             case unauthorized_code:
-              console.log(error.error.Message);
-              userMessage = error.error.Message;
+              userMessage = "Credenciales inválidas";
               break;
             default:
               userMessage = "Error de comunicación";
