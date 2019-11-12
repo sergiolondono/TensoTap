@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CapturasUsuarioService } from '../services/capturas-usuario.service';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { DatatableService } from '../services/datatable.service';
+import { MensajesService } from '../mensajes.service';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ modalOptions: NgbModalOptions = {};
 arrayCapturas: any[]=[];
 
   constructor(private capturasService: CapturasUsuarioService,
+    private toastr: MensajesService,
     private modalService: NgbModal,
     private datatableService: DatatableService) { }
 
@@ -36,11 +38,16 @@ arrayCapturas: any[]=[];
       this.data = [];
       this.arrayCapturas = [];
       this.data = data;
-      var keys = Object.keys(this.data[0]);      
-      for (let index = 0; index < keys.length; index++) {
-        this.arrayCapturas.push({ title: keys[index], data: keys[index]});         
+      if(this.data.length){
+        var keys = Object.keys(this.data[0]);      
+        for (let index = 0; index < keys.length; index++) {
+          this.arrayCapturas.push({ title: keys[index], data: keys[index]});         
+        }
+        this.configDataTable();
       }
-      this.configDataTable();
+      else{
+        this.toastr.showInfo("No existen capturas del mes actual!");
+      }
     });
   }
   
