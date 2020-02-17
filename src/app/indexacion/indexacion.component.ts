@@ -7,7 +7,8 @@ import {
   ElementRef,
   ViewChildren,
   Directive,
-  AfterViewInit
+  AfterViewInit,
+  HostListener
 } from "@angular/core";
 import { DocumentsService } from "../services/documents.service";
 import { LoginService } from "../login.service";
@@ -43,6 +44,7 @@ export class IndexacionComponent implements OnInit {
   @ViewChild("modalConfirm", {read: false}) modalconfirm: ElementRef;
   @ViewChild("modalDescarte", {read: false}) modaldescarte: ElementRef;
   modalOptions: NgbModalOptions = {};
+  public keypressed;
 
   constructor(
     private documentService: DocumentsService,
@@ -59,6 +61,34 @@ export class IndexacionComponent implements OnInit {
 
   ngOnInit() {}
 
+  @HostListener("window:keydown", ["$event"])
+  handleKeyboardEvent(e) {
+    this.keypressed = e.keyCode;
+
+    enum keyAscii {
+      i = 73,
+      j = 74,
+      k = 75,
+      l = 76,
+      menos = 109,
+      menosInterno = 189,
+      mas = 107,
+      masInterno = 187,
+      flechaDerecha = 39,
+      flechaIzquierda = 37,
+      f2 = 113,
+      f3 = 114,
+      f4 = 115,
+      tab = 9,
+      enter = 13
+    }
+
+    if (e.altKey && this.keypressed == keyAscii.f3) {
+      this.descartarDocumento();
+    }
+
+  }
+  
   descartarDocumento() {
     this.esDescartado = true;
     this.getMotivosDescarte();

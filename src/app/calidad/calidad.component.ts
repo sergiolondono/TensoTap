@@ -138,12 +138,12 @@ guardarCapturaCalidad(f){
 }
 
   guardarValidacion(f) {
-    if (f.usuario === "") {
-      this.toastr.showWarning(
-        "Debe seleccionar al menos una de las capturas presentadas!"
-      );
-      return false;
-    }
+    // if (f.usuario === "") {
+    //   this.toastr.showWarning(
+    //     "Debe seleccionar al menos una de las capturas presentadas!"
+    //   );
+    //   return false;
+    // }
     // Grabar información en base de datos.
     this.confirmarProcesoCalidad();
   }

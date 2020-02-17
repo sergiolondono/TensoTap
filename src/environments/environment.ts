@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   //APIEndpoint:  'http://tensotap.eastus.cloudapp.azure.com/TensoTapService/api/',
-  whitelist: ['localhost:58654', 'tensotap.eastus.cloudapp.azure.com'],
+  whitelist: ['localhost:58654', 'tensotap.eastus2.cloudapp.azure.com'],
   APIEndpoint: 'http://localhost:58654/api/'
 };
 
