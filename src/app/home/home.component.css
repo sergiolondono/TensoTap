@@ -1,8 +1,8 @@
 .jumbotron {
-     background-image: url("../../app/img/perspective.jpg"); 
+    background-image: url("../../app/img/perspective.jpg");
     background-size: cover;
-  }
+}
 
-  .inicio {
-      color: sandybrown;
-  }
+.inicio {
+    color: sandybrown;
+}

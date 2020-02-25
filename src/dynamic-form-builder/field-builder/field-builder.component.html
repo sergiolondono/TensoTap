@@ -2,10 +2,11 @@
     <label class="col-md-5 form-control-label" [attr.for]="field.label">
                 <b>{{field.label}}</b>                
               </label>
-     <div class="col-md-12" [ngSwitch]="field.type">
+    <div class="col-md-12" [ngSwitch]="field.type">
         <textbox *ngSwitchCase="'text'" [field]="field" [form]="form"></textbox>
         <datetextbox *ngSwitchCase="'datetext'" [field]="field" [form]="form"></datetextbox>
         <dropdown *ngSwitchCase="'dropdown'" [field]="field" [form]="form"></dropdown>
+        <multidropdown *ngSwitchCase="'multidropdown'" [field]="field" [form]="form"></multidropdown>
         <checkbox *ngSwitchCase="'checkbox'" [field]="field" [form]="form"></checkbox>
         <radio *ngSwitchCase="'radio'" [field]="field" [form]="form"></radio>
         <file *ngSwitchCase="'file'" [field]="field" [form]="form"></file>

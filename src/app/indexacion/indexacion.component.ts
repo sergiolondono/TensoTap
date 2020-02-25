@@ -117,13 +117,13 @@ export class IndexacionComponent implements OnInit {
         this.infoCaptured.usuarioCaptura
     );
 
-    if (this.documentService.saveDocument(this.infoCaptured))
-      this.toastr.showSuccess("Captura guardada exitosamente!");
-    else this.toastr.showError("La captura no se guardó de forma correcta!");
+    // if (this.documentService.saveDocument(this.infoCaptured))
+    //   this.toastr.showSuccess("Captura guardada exitosamente!");
+    // else this.toastr.showError("La captura no se guardó de forma correcta!");
 
-    this.cerrarModal();
-    this.form.reset();
-    this.getDocuments();
+    // this.cerrarModal();
+    // this.form.reset();
+    // this.getDocuments();
   }
 
   getDocuments() {
