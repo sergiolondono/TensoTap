@@ -24,9 +24,9 @@ export class DocumentsService {
 };
 
  constructor(private http: HttpClient) { }
-  
+
   private extractData(res: Response) {
-    let body = res;
+    const body = res;
     return body || { };
   }
 
@@ -39,11 +39,11 @@ export class DocumentsService {
     return this.http.get(this.endpoint + '?usuario=' + usuario).pipe(
       tap(
         data => { 
-          this.extractData
+          this.extractData;
           return true;
         },
         error => {
-          console.log("Error", error);
+          console.log('Error', error);
           return false;
         } 
         )

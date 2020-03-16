@@ -29,6 +29,7 @@ export class IndexacionComponent implements OnInit {
   descartes;
   image;
   imageId;
+  imageName;
   converted_image;
   infoCaptured;
   error: boolean = false;
@@ -117,18 +118,18 @@ export class IndexacionComponent implements OnInit {
         this.infoCaptured.usuarioCaptura
     );
 
-    // if (this.documentService.saveDocument(this.infoCaptured))
-    //   this.toastr.showSuccess("Captura guardada exitosamente!");
-    // else this.toastr.showError("La captura no se guardó de forma correcta!");
+    if (this.documentService.saveDocument(this.infoCaptured))
+      this.toastr.showSuccess("Captura guardada exitosamente!");
+    else this.toastr.showError("La captura no se guardó de forma correcta!");
 
-    // this.cerrarModal();
-    // this.form.reset();
-    // this.getDocuments();
+    this.cerrarModal();
+    this.form.reset();
+    this.getDocuments();
   }
 
   getDocuments() {
-    this.document = "";
-    this.documentService.getDocuments(localStorage.getItem("user")).subscribe(
+    this.document = '';
+    this.documentService.getDocuments(localStorage.getItem('user')).subscribe(
       (data: {}) => {
         this.document = data;
 
@@ -137,9 +138,8 @@ export class IndexacionComponent implements OnInit {
           this.document.imageProccess !== null
         ) {
           this.fields = this.document.fieldForm;
-
           this.imageId = this.document.imageProccess.id;
-
+          this.imageName = this.document.imageProccess.name;
           this.form = new FormGroup({
             fields: new FormControl(JSON.stringify(this.fields))
           });
@@ -147,15 +147,15 @@ export class IndexacionComponent implements OnInit {
             this.fields = JSON.parse(update.fields);
           });
           this.converted_image =
-            "data:image/jpeg;base64," + this.document.imageProccess.imageBytes;
+            'data:image/jpeg;base64,' + this.document.imageProccess.imageBytes;
         } else {
-          this.toastr.showInfo("No hay imágenes para capturar!");
+          this.toastr.showInfo('No hay imágenes para capturar!');
         }
       },
       error => {
         if (error.status === 401) {
           this.error = true;
-          this.toastr.showWarning("Acceso no autorizado!");
+          this.toastr.showWarning('Acceso no autorizado!');
         }
       }
     );
