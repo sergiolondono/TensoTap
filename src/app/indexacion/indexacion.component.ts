@@ -104,7 +104,7 @@ export class IndexacionComponent implements OnInit {
     this.formCaptured = f;
     this.infoCaptured = new InfoCaptured();
     this.infoCaptured.idImagen = this.imageId;
-    this.infoCaptured.informacionCaptura = this.formCaptured.name;
+    this.infoCaptured.informacionCaptura = this.formCaptured.name.toString();
     this.infoCaptured.usuarioCaptura = localStorage.getItem("user");
     this.infoCaptured.esCapturaCalidad = false;
     this.infoCaptured.esDescarte = false;

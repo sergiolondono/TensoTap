@@ -56,6 +56,7 @@ export class DocumentsService {
   }
 
   saveDocument(infoCapturada) {
+    console.log(infoCapturada);
     return this.http.post(this.endpoint, infoCapturada)
     .subscribe(
       data  => {
