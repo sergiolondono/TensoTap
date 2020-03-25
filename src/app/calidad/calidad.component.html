@@ -1,219 +1,170 @@
 <div class="row">
-  <div class="col col-12">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col col-12">
-            <h3 class="card-title text-center">Módulo de Calidad</h3>
-          </div>
-        </div>
-        <div>
-          <table
-            class="table 
+    <div class="col col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col col-12">
+                        <h3 class="card-title text-center">Módulo de Calidad</h3>
+                    </div>
+                </div>
+                <div>
+                    <table class="table 
               table-striped 
               table-hover 
               table-bordered 
               table-sm
-              table-responsive-sm"
-          >
-            <caption>
-              Listado de imagenes para validar
-            </caption>
-            <thead class="text-center">
-              <tr>
-                <th>Código Imagen</th>
-                <th>Imagen</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody class="text-center">
-              <ng-container *ngFor="let imagen of data">
-                <tr>
-                  <td>{{ imagen.idImagen }}</td>
-                  <td>
-                    <img
-                      [src]="imagen.ruta"
-                      class="img-fluid img-thumbnail img-responsive mx-auto d-block rounded"
-                    />
-                  </td>
-                  <td>
-                    <button
-                      class="btn btn-success btn-sm"
-                      (click)="validarCapturas(imagen)"
-                    >
+              table-responsive-sm">
+                        <caption>
+                            Listado de imagenes para validar
+                        </caption>
+                        <thead class="text-center">
+                            <tr>
+                                <th>Código Imagen</th>
+                                <th>Imagen</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <ng-container *ngFor="let imagen of data">
+                                <tr>
+                                    <td>{{ imagen.idImagen }}</td>
+                                    <td>
+                                        <img [src]="imagen.ruta" class="img-fluid img-thumbnail img-responsive mx-auto d-block rounded" />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success btn-sm" (click)="validarCapturas(imagen)">
                       <i class="fa fa-eye"></i> Validar
                     </button>
-                  </td>
-                </tr>
-              </ng-container>
-            </tbody>
-          </table>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <div>
-  <ng-template #modalValidacion>
-    <div class="text-center m-2">
-      <h5>
-        Validación Campo:
-        <span class="badge badge-pill badge-info">{{ nombreCampo }}</span>
-        <span *ngIf="NPagina">  Página Número:
+    <ng-template #modalValidacion>
+        <div class="text-center m-2">
+            <h5>
+                Validación Campo:
+                <span class="badge badge-pill badge-info">{{ nombreCampo }}</span>
+                <span *ngIf="NPagina">  Página Número:
         <span class="badge badge-pill badge-info">{{ NPagina }}</span>
-      </span>
-      </h5>
-      <hr />
-    </div>
-    <div class="modal-body">
-      <div class="row">
+                </span>
+            </h5>
+            <hr />
+        </div>
+        <div class="modal-body">
+            <div class="row">
 
 
-        <div *ngIf="existsPdfPage" class="col col-8">
+                <div *ngIf="existsPdfPage" class="col col-8">
 
-            <input (change)="onFileSelected()" type="file" id="file" class="d-none" accept=".pdf" />
-            <div class="toolbar d-flex">
-                <!-- <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-open_in_browser-24px.svg'" (click)="openLocalFile()" title="Open File"></span> -->
-                <!-- <span class="my-icon" [ngClass]="{ active: isOutlineShown }" [inlineSVG]="'/assets/icon/baseline-toc-24px.svg'" (click)="toggleOutline()" title="Toggle Outline"></span> -->
-                <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-rotate_left-24px.svg'" (click)="rotate(-90)" title="Rotate Left"></span>
-                <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-rotate_right-24px.svg'" (click)="rotate(90)" title="Rotate Right"></span>
-                <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-zoom_in-24px.svg'" (click)="incrementZoom(0.1)" title="Zoom In"></span>
-                <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-zoom_out-24px.svg'" (click)="incrementZoom(-0.1)" title="Zoom Out"></span>
-                <span class="my-icon" [ngClass]="{ active: fitToPage }" [inlineSVG]="'/assets/icon/baseline-insert_drive_file-24px.svg'" (click)="fitToPage = !fitToPage" title="Toggle Fit Page"></span>
-                <span class="my-icon" [ngClass]="{ active: showAll }" [inlineSVG]="'/assets/icon/baseline-multi-pages-24px.svg'" (click)="showAll = !showAll" title="Toggle Show All"></span>
+                    <input (change)="onFileSelected()" type="file" id="file" class="d-none" accept=".pdf" />
+                    <div class="toolbar d-flex">
+                        <!-- <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-open_in_browser-24px.svg'" (click)="openLocalFile()" title="Open File"></span> -->
+                        <!-- <span class="my-icon" [ngClass]="{ active: isOutlineShown }" [inlineSVG]="'/assets/icon/baseline-toc-24px.svg'" (click)="toggleOutline()" title="Toggle Outline"></span> -->
+                        <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-rotate_left-24px.svg'" (click)="rotate(-90)" title="Rotate Left"></span>
+                        <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-rotate_right-24px.svg'" (click)="rotate(90)" title="Rotate Right"></span>
+                        <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-zoom_in-24px.svg'" (click)="incrementZoom(0.1)" title="Zoom In"></span>
+                        <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-zoom_out-24px.svg'" (click)="incrementZoom(-0.1)" title="Zoom Out"></span>
+                        <span class="my-icon" [ngClass]="{ active: fitToPage }" [inlineSVG]="'/assets/icon/baseline-insert_drive_file-24px.svg'" (click)="fitToPage = !fitToPage" title="Toggle Fit Page"></span>
+                        <span class="my-icon" [ngClass]="{ active: showAll }" [inlineSVG]="'/assets/icon/baseline-multi-pages-24px.svg'" (click)="showAll = !showAll" title="Toggle Show All"></span>
 
-                <ng-container *ngIf="!showAll">
-                    <span class="my-icon ml-auto" [inlineSVG]="'/assets/icon/baseline-navigate_before-24px.svg'" (click)="incrementPage(-1)" title="Previous Page"></span>
-                    <div>
-                        <input type="number" class="page-num" placeholder="Page" [(ngModel)]="page" pattern="-?[0-9]*(\.[0-9]+)?" tabindex="2" />
-                        <span *ngIf="pdf">of {{ pdf.numPages }}</span>
+                        <ng-container *ngIf="!showAll">
+                            <span class="my-icon ml-auto" [inlineSVG]="'/assets/icon/baseline-navigate_before-24px.svg'" (click)="incrementPage(-1)" title="Previous Page"></span>
+                            <div>
+                                <input type="number" class="page-num" placeholder="Page" [(ngModel)]="page" pattern="-?[0-9]*(\.[0-9]+)?" tabindex="2" />
+                                <span *ngIf="pdf">of {{ pdf.numPages }}</span>
+                            </div>
+                            <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-navigate_next-24px.svg'" (click)="incrementPage(1)" title="Next Page"></span>
+                        </ng-container>
+
+                        <label class="my-icon ml-auto" [inlineSVG]="'/assets/icon/baseline-search-24px.svg'" for="searchbox" title="Search.."></label>
+                        <input #queryInp type="text" id="searchbox" name="searchbox" class="searchbox mr-5" placeholder="Search..." [value]="pdfQuery" tabindex="3" (input)="searchQueryChanged($event.target.value)" (keyup.enter)="searchQueryChanged(queryInp.value)" />
                     </div>
-                    <span class="my-icon" [inlineSVG]="'/assets/icon/baseline-navigate_next-24px.svg'" (click)="incrementPage(1)" title="Next Page"></span>
-                </ng-container>
 
-                <label class="my-icon ml-auto" [inlineSVG]="'/assets/icon/baseline-search-24px.svg'" for="searchbox" title="Search.."></label>
-                <input #queryInp type="text" id="searchbox" name="searchbox" class="searchbox mr-5" placeholder="Search..." [value]="pdfQuery" tabindex="3" (input)="searchQueryChanged($event.target.value)" (keyup.enter)="searchQueryChanged(queryInp.value)" />
-            </div>
-           
-            <div class="pdf-body">
-                <div *ngIf="isOutlineShown" class="outline">
-                    <ul *ngFor="let item of outline" class="outline-list">
-                        <li>
-                            <a (click)="navigateTo(item.dest)"> {{ item.title }} </a>
-
-                            <ul *ngFor="let child of item.items">
+                    <div class="pdf-body">
+                        <div *ngIf="isOutlineShown" class="outline">
+                            <ul *ngFor="let item of outline" class="outline-list">
                                 <li>
-                                    <a (click)="navigateTo(child.dest)"> {{ child.title }} </a>
+                                    <a (click)="navigateTo(item.dest)"> {{ item.title }} </a>
+
+                                    <ul *ngFor="let child of item.items">
+                                        <li>
+                                            <a (click)="navigateTo(child.dest)"> {{ child.title }} </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
-                        </li>
-                    </ul>
-                </div>   
-                
-                <div style="overflow-y: scroll;overflow-x: scroll;" #pdfV>
-                    <pdf-viewer
-                      (keydown)="onKeyDown($event)"
-                      [src]="pdfSrc"
-                      [(page)]="page"
-                      [rotation]="rotation"
-                      [original-size]="originalSize"
-                      [fit-to-page]="fitToPage"
-                      (after-load-complete)="afterLoadComplete($event)"
-                      [zoom]="zoom"
-                      [show-all]="showAll"
-                      [stick-to-page]="stickToPage"
-                      [render-text]="renderText"
-                      [external-link-target]="'blank'"
-                      [autoresize]="autoresize"
-                      (error)="onError($event)"
-                      (on-progress)="onProgress($event)"
-                      (page-rendered)="pageRendered($event)"
-                      style="display: block; height: 65vh;"
-                    >
-                    </pdf-viewer>
-                  </div>
-            </div>
-         
-        </div>
+                        </div>
 
-        <div [ngClass]="existsPdfPage ? 'col col-4' : 'col col-12'">
-          <div class="row">
-            <div class="col col-10">
-              <img
-                [src]="imagenValidar"
-                class="img-fluid 
+                        <div style="overflow-y: scroll;overflow-x: scroll;" #pdfV>
+                            <pdf-viewer [src]="pdfSrc" [(page)]="page" [rotation]="rotation" [original-size]="originalSize" [fit-to-page]="fitToPage" (after-load-complete)="afterLoadComplete($event)" [zoom]="zoom" [show-all]="showAll" [stick-to-page]="stickToPage" [render-text]="renderText"
+                                [external-link-target]="'blank'" [autoresize]="autoresize" (error)="onError($event)" (on-progress)="onProgress($event)" (page-rendered)="pageRendered($event)" style="display: block; height: 65vh;">
+                            </pdf-viewer>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div [ngClass]="existsPdfPage ? 'col col-4' : 'col col-12'">
+                    <div class="row">
+                        <div class="col col-10">
+                            <img [src]="imagenValidar" class="img-fluid 
                   img-thumbnail 
                   img-responsive 
                   mx-auto 
                   d-block 
-                  rounded"
-              />
-            </div>
-            <div class="col col-2 text-right">
-              <button
-                type="button"
-                class="btn btn-sm btn-outline-info"
-                (click)="mostrarDocumentoCompleto(imagenId)"
-                *ngIf="!loading"
-              >
+                  rounded" />
+                        </div>
+                        <div class="col col-2 text-right">
+                            <button type="button" class="btn btn-sm btn-outline-info" (click)="mostrarDocumentoCompleto(imagenId)" *ngIf="!loading">
                 <fa name="file" size="2x"></fa>
               </button>
 
-              <loading *ngIf="loading"></loading>
-            </div>
-          </div>
+                            <loading *ngIf="loading"></loading>
+                        </div>
+                    </div>
 
-          <div class="row">
-            <div class="col col-12">
-              <form #f="ngForm" (ngSubmit)="guardarValidacion(f.value)">
-                <table
-                  class="table table-hover table-striped table-bordered table-sm m-2"
-                >
-                  <thead class="text-center">
-                    <tr>
-                      <th><i class="fa fa-user"></i> Usuario</th>
-                      <th><i class="fa fa-id-card"></i> Captura</th>
-                      <th>Acción</th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-center">
-                    <ng-container *ngFor="let info of dataDetalle">
-                      <tr>
-                        <td>
-                          {{ info.usuarioCaptura }}
-                        </td>
-                        <td>
-                          {{ info.informacionCaptura }}
-                        </td>
-                        <td>
-                          <input
-                            ngModel
-                            id="info.informacionCaptura"
-                            type="radio"
-                            name="usuario"
-                            [value]="info.informacionCaptura"
-                            (click)="habilitarControl('', info)"
-                          />
-                        </td>
-                      </tr>
-                    </ng-container>
-                  </tbody>
-                </table>
+                    <div class="row">
+                        <div class="col col-12">
+                            <form #f="ngForm" (ngSubmit)="guardarValidacion(f.value)">
+                                <table class="table table-hover table-striped table-bordered table-sm m-2">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th><i class="fa fa-user"></i> Usuario</th>
+                                            <th><i class="fa fa-id-card"></i> Captura</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                        <ng-container *ngFor="let info of dataDetalle">
+                                            <tr>
+                                                <td>
+                                                    {{ info.usuarioCaptura }}
+                                                </td>
+                                                <td>
+                                                    {{ info.informacionCaptura }}
+                                                </td>
+                                                <td>
+                                                    <input ngModel id="info.informacionCaptura" type="radio" name="usuario" [value]="info.informacionCaptura" (click)="habilitarControl('', info)" />
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
 
-                <div class="col-sm-12 m-2">
-                  <input
-                    ngModel
-                    type="radio"
-                    name="usuario"
-                    value="usuarioCalidad"
-                    (click)="habilitarControl('calidad', null)"
-                  />
-                  {{ usuarioCalidad }}
-                </div>
+                                <div class="col-sm-12 m-2">
+                                    <input ngModel type="radio" name="usuario" value="usuarioCalidad" (click)="habilitarControl('calidad', null)" /> {{ usuarioCalidad }}
+                                </div>
 
-                <div class="col-sm-12 m-2" *ngIf="capturaCalidad">
-                  <!-- <input
+                                <div class="col-sm-12 m-2" *ngIf="capturaCalidad">
+                                    <!-- <input
                     ngModel
                     autofocus
                     type="text"
@@ -222,33 +173,28 @@
                     id="inputCalidad"
                   /> -->
 
-                  <div class="form-group col-sm-12 m-2" *ngIf="fields">
-                    <dynamic-form-builder (onSubmit)="guardarCapturaCalidad($event)" [fields]="fields">                    
-                    </dynamic-form-builder>
-                  </div>   
-                  
-                </div>            
+                                    <div class="form-group col-sm-12 m-2" *ngIf="fields">
+                                        <dynamic-form-builder (onSubmit)="guardarCapturaCalidad($event)" [fields]="fields">
+                                        </dynamic-form-builder>
+                                    </div>
 
-                <hr />
+                                </div>
 
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    (click)="cerrarModal()"
-                  >
+                                <hr />
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" (click)="cerrarModal()">
                     Cerrar
                   </button>
-                  <button *ngIf="!this.capturaCalidad" type="submit" id="btnGuardarCalidad" class="btn btn-primary">
+                                    <button *ngIf="!this.capturaCalidad" type="submit" id="btnGuardarCalidad" class="btn btn-primary">
                     Guardar
                   </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-              </form>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </ng-template>
+    </ng-template>
 </div>
-

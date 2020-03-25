@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
 
   get f() { return this.registerForm.controls; }
 
-  registerUser(userData){
+  registerUser(userData) {
     this.submitted = true;
 
     if (this.registerForm.invalid) {
@@ -43,13 +43,13 @@ export class RegisterComponent implements OnInit {
     }
 
     this.userRegister = new UserRegister();
-    this.userRegister.userName = userData.userName;
+    this.userRegister.userName = userData.userName.trim();
     this.userRegister.nombre = userData.name;
     this.userRegister.apellidos = userData.lastName;
     this.userRegister.identificacion = userData.identification;
     this.userRegister.email = userData.email;
-    this.userRegister.password = userData.password;
-    
+    this.userRegister.password = userData.password.trim();
+
     this.userService.saveUser(this.userRegister).subscribe(result => {
       // console.log(result);
       this.toastr.showSuccess('REGISTRO EXITOSO!');

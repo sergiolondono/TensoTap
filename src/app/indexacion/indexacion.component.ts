@@ -110,17 +110,17 @@ export class IndexacionComponent implements OnInit {
     this.infoCaptured.esDescarte = false;
 
     console.log(
-      "Captura: " +
+    'Captura: ' +
         this.formCaptured.name +
-        " ImagenId: " +
+        ' ImagenId: ' +
         this.imageId +
-        " Usuario: " +
+        ' Usuario: ' +
         this.infoCaptured.usuarioCaptura
     );
 
-    if (this.documentService.saveDocument(this.infoCaptured))
-      this.toastr.showSuccess("Captura guardada exitosamente!");
-    else this.toastr.showError("La captura no se guardó de forma correcta!");
+    if (this.documentService.saveDocument(this.infoCaptured)) {
+      this.toastr.showSuccess('Captura guardada exitosamente!');
+    } else { this.toastr.showError('La captura no se guardó de forma correcta!'); }
 
     this.cerrarModal();
     this.form.reset();
@@ -128,6 +128,7 @@ export class IndexacionComponent implements OnInit {
   }
 
   getDocuments() {
+    this.converted_image = '';
     this.document = '';
     this.documentService.getDocuments(localStorage.getItem('user')).subscribe(
       (data: {}) => {
