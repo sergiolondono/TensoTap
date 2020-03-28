@@ -18,12 +18,12 @@ export class AprobarUsuariosComponent implements OnInit {
   rolSelected: any;
   usuarioSelected: any;
   usuarioXrol;
+  message = '';
+  loading: boolean;
 
   @ViewChild('dataTable', { read: false}) table;
   dataTable: any;
   dtOptions: DataTables.Settings = {};
-
-  message = '';
 
   @ViewChild('modalAprobar', { read: false}) modalAprobar: ElementRef;
   modalOptions: NgbModalOptions = {};
@@ -38,11 +38,13 @@ export class AprobarUsuariosComponent implements OnInit {
   ngOnInit() {  }
 
   obtenerUsuarios() {
+    this.loading = false;
     this.aprobarUsuarioService.obtenerUsuarios().subscribe((data: {}) => {
       this.config = data;
       this.usuariosAprobar = this.config.UsuariosDB;
       this.roles = this.config.RolesDB;
       this.configDataTable();
+      this.loading = true;
     });
   }
 
@@ -83,7 +85,7 @@ export class AprobarUsuariosComponent implements OnInit {
         { title: 'Email', data: 'email' },
         {
           title: 'Certificar',
-          render: function() {
+          render() {
             return (
               '<div class="text-center">' +
               '<button type="button" class="btn btn-default">' +
