@@ -15,11 +15,12 @@ export class BsNavbarComponent implements OnInit {
   public isCollapsed = true;
 
   constructor(public authService: AuthService,
-    public loginService: LoginService) { 
-    this.authService.User.subscribe(userLogged => (this.userLogged = userLogged))
+              public loginService: LoginService) {
+    this.authService.User.subscribe(userLogged => (this.userLogged = userLogged));
     this.authService.UserMenu.subscribe(userMenu => (this.userConfigInit = userMenu));
-    if(this.userConfigInit == undefined)
-      this.userConfigInit = JSON.parse(localStorage.getItem('initConfig'));     
+    if (this.userConfigInit === undefined) {
+      this.userConfigInit = JSON.parse(localStorage.getItem('initConfig'));
+    }
   }
 
   ngOnInit() {

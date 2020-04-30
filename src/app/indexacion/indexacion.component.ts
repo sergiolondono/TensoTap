@@ -124,7 +124,8 @@ export class IndexacionComponent implements OnInit {
 
     this.cerrarModal();
     this.form.reset();
-    this.getDocuments();
+    setTimeout(() => { this.getDocuments(); }, 700);
+    // this.getDocuments();
   }
 
   getDocuments() {

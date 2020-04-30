@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   data: any;
   token;
   endpoint = environment.APIEndpoint + 'Login/authenticate';
-  
+
   constructor(
     private authService: AuthService,
     private http: HttpClient,
@@ -38,19 +38,19 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('user');
   }
 
-  signIn(credentials) {   
-    this.loading = true; 
+  signIn(credentials) {
+    this.loading = true;
     this.AuthenticatedUser(credentials);
   }
 
-  resolved(captchaResponse: string) {   
-    this.checkCaptcha = captchaResponse;    
+  resolved(captchaResponse: string) {
+    this.checkCaptcha = captchaResponse;
 }
 
   handleToken(token: string): void {
-    console.log("handleToken not implemented." + token);
+    console.log('handleToken not implemented.' + token);
   }
-  
+
   AuthenticatedUser(user) {
     let credentials = {
       userName: user.usuario,
@@ -59,34 +59,33 @@ export class LoginComponent implements OnInit {
     return this.http.post(this.endpoint, credentials).subscribe(
       data => {
         this.data = data;
-        console.log("POST Request is successful", data);
-        localStorage.setItem("initConfig", JSON.stringify(this.data));
-        localStorage.setItem("token", this.data[0].token);
+        console.log('POST Request is successful', data);
+        localStorage.setItem('initConfig', JSON.stringify(this.data));
+        localStorage.setItem('token', this.data[0].token);
         localStorage.setItem('user', credentials.userName);
-        this.router.navigateByUrl("/indexacion");
-        //this.loading = false;
+        this.router.navigateByUrl('/indexacion');
       },
       error => {
         const unauthorized_code = 401;
         const internalServer_code = 500;
 
-        let userMessage = "Fatal error";
+        let userMessage = 'Fatal error';
         if (error instanceof HttpErrorResponse) {
           switch (error.status) {
             case internalServer_code:
-              userMessage = "Error interno!";
+              userMessage = 'Error interno!';
               break;
             case unauthorized_code:
-              userMessage = "Credenciales inválidas";
+              userMessage = 'Credenciales inválidas';
               break;
             default:
-              userMessage = "Error de comunicación";
+              userMessage = 'Error de comunicación';
               break;
           }
         }
         this.loading = false;
         this.toastr.showInfo(userMessage);
-        console.log("Error", error);
+        console.log('Error', error);
       }
     );
   }

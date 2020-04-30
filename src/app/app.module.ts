@@ -33,6 +33,9 @@ import { AprobarUsuariosComponent } from './aprobar-usuarios/aprobar-usuarios.co
 import { LoadingComponent } from './loading/loading.component';
 import { CalidadComponent } from './calidad/calidad.component';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { ReporteCapturadasComponent } from './Reportes/reporte-capturadas/reporte-capturadas.component';
+import { ReporteCapturadasUsuarioComponent } from './Reportes/reporte-capturadas-usuario/reporte-capturadas-usuario.component';
+import { ReportePendientesComponent } from './Reportes/reporte-pendientes/reporte-pendientes.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -50,7 +53,10 @@ export function tokenGetter() {
     AprobarUsuariosComponent,
     LoadingComponent,
     CalidadComponent,
-    LoaderComponent
+    LoaderComponent,
+    ReporteCapturadasComponent,
+    ReporteCapturadasUsuarioComponent,
+    ReportePendientesComponent
   ],
   imports: [
     JwtModule.forRoot({
@@ -77,19 +83,20 @@ export function tokenGetter() {
       preventDuplicates: true,
       progressBar: true,
       closeButton: true,
-      positionClass: "toast-top-left"
+      positionClass: 'toast-top-left'
     }),
-    NgbModule.forRoot(),
+    NgbModule,
     RouterModule.forRoot([
        { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-      //{ path: '', component: CalidadComponent},
-      //{ path: '', component: IndexacionComponent, canActivate: [AuthGuard]},
-      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },      
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'registrarse', component: RegisterComponent },
       { path: 'aprobarusuarios', component: AprobarUsuariosComponent, canActivate: [AuthGuard] },
       { path: 'calidad', component: CalidadComponent, canActivate: [AuthGuard] },
-      { path: 'indexacion', component: IndexacionComponent, canActivate: [AuthGuard]  }
+      { path: 'indexacion', component: IndexacionComponent, canActivate: [AuthGuard]  },
+      { path: 'repcapturas', component: ReporteCapturadasComponent, canActivate: [AuthGuard]  },
+      { path: 'repcapturasusuarios', component: ReporteCapturadasUsuarioComponent, canActivate: [AuthGuard]  },
+      { path: 'reppendientes', component: ReportePendientesComponent, canActivate: [AuthGuard]  }
     ])
   ],
   providers: [{
@@ -97,7 +104,7 @@ export function tokenGetter() {
     useValue: {
       siteKey: '6Lf2LL8UAAAAAHgY8HFfDLznfrRraPSpfWnshCh1'
     } as RecaptchaSettings,
-  }, 
+  },
 FieldsFunctionalityService],
   bootstrap: [AppComponent]
 })
