@@ -1,5 +1,5 @@
-import { InfoCaptured } from "./../_models/infoCaptured";
-import { ActivatedRoute } from "@angular/router";
+import { InfoCaptured } from './../_models/infoCaptured';
+import { ActivatedRoute } from '@angular/router';
 import {
   Component,
   OnInit,
@@ -9,20 +9,20 @@ import {
   Directive,
   AfterViewInit,
   HostListener
-} from "@angular/core";
-import { DocumentsService } from "../services/documents.service";
-import { LoginService } from "../login.service";
-import { FormGroup, FormControl } from "@angular/forms";
-import { ToastrService } from "ngx-toastr";
-import { MensajesService } from "../mensajes.service";
-import { NgSelectComponent } from "@ng-select/ng-select";
-import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
-import { DescarteService } from "../descarte.service";
+} from '@angular/core';
+import { DocumentsService } from '../services/documents.service';
+import { LoginService } from '../login.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { MensajesService } from '../mensajes.service';
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { DescarteService } from '../descarte.service';
 
 @Component({
-  selector: "app-indexacion",
-  templateUrl: "./indexacion.component.html",
-  styleUrls: ["./indexacion.component.css"]
+  selector: 'app-indexacion',
+  templateUrl: './indexacion.component.html',
+  styleUrls: ['./indexacion.component.css']
 })
 export class IndexacionComponent implements OnInit {
   document;
@@ -42,8 +42,8 @@ export class IndexacionComponent implements OnInit {
   motivosDescarte: any = [];
   motivoSelected: any;
 
-  @ViewChild("modalConfirm", {read: false}) modalconfirm: ElementRef;
-  @ViewChild("modalDescarte", {read: false}) modaldescarte: ElementRef;
+  @ViewChild('modalConfirm', {read: false}) modalconfirm: ElementRef;
+  @ViewChild('modalDescarte', {read: false}) modaldescarte: ElementRef;
   modalOptions: NgbModalOptions = {};
   public keypressed;
 
@@ -58,11 +58,11 @@ export class IndexacionComponent implements OnInit {
     this.getDocuments();
   }
 
-  title = "TensoTapApp";
+  title = 'TensoTapApp';
 
   ngOnInit() {}
 
-  @HostListener("window:keydown", ["$event"])
+  @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(e) {
     this.keypressed = e.keyCode;
 
@@ -84,17 +84,17 @@ export class IndexacionComponent implements OnInit {
       enter = 13
     }
 
-    if (e.altKey && this.keypressed == keyAscii.f3) {
+    if (e.altKey && this.keypressed === keyAscii.f3) {
       this.descartarDocumento();
     }
 
   }
-  
+
   descartarDocumento() {
     this.esDescartado = true;
     this.getMotivosDescarte();
     this.openModalDescarte();
-    // //if (confirm("Desea descartar el documento?")) {
+    // //if (confirm('Desea descartar el documento?')) {
     // this.form.reset();
     // this.getDocuments();
     // // }
@@ -105,7 +105,7 @@ export class IndexacionComponent implements OnInit {
     this.infoCaptured = new InfoCaptured();
     this.infoCaptured.idImagen = this.imageId;
     this.infoCaptured.informacionCaptura = this.formCaptured.name.toString();
-    this.infoCaptured.usuarioCaptura = localStorage.getItem("user");
+    this.infoCaptured.usuarioCaptura = localStorage.getItem('user');
     this.infoCaptured.esCapturaCalidad = false;
     this.infoCaptured.esDescarte = false;
 
@@ -164,12 +164,12 @@ export class IndexacionComponent implements OnInit {
   }
 
   getDocument() {
-    this.document = "";
+    this.document = '';
     this.documentService.getDocument(3).subscribe((data: {}) => {
       this.document = data;
       this.fields = this.document.fieldForm;
       this.image = this.document.imageProccess.imageBytes;
-      this.converted_image = "data:image/jpeg;base64," + this.image;
+      this.converted_image = 'data:image/jpeg;base64,' + this.image;
     });
   }
 
@@ -197,24 +197,28 @@ export class IndexacionComponent implements OnInit {
 
     this.infoCaptured = new InfoCaptured();
     this.infoCaptured.idImagen = this.imageId;
-    this.infoCaptured.usuarioCaptura = localStorage.getItem("user");
+    this.infoCaptured.usuarioCaptura = localStorage.getItem('user');
     this.infoCaptured.esCapturaCalidad = false;
 
-    if (this.motivoSelected === "1") {
-      this.infoCaptured.informacionCaptura = "";
+    if (this.motivoSelected === '1') {
+      this.infoCaptured.informacionCaptura = '';
       this.infoCaptured.esDescarte = false;
 
-      if (this.documentService.saveDocument(this.infoCaptured))
-        this.toastr.showSuccess("Captura guardada exitosamente!");
-      else this.toastr.showError("La captura no se guardó de forma correcta!");
-    }
-    else {
+      if (this.documentService.saveDocument(this.infoCaptured)){
+        this.toastr.showSuccess('Captura guardada exitosamente!');
+      } else {
+        this.toastr.showError('active2La captura no se guardó de forma correcta!');
+      }
+    } else {
       this.infoCaptured.informacionCaptura = this.motivoSelected;
       this.infoCaptured.esDescarte = true;
 
       if (this.documentService.saveDocument(this.infoCaptured))
-      this.toastr.showSuccess("Captura guardada exitosamente!");
-      else this.toastr.showError("La captura no se guardó de forma correcta!");
+      {
+        this.toastr.showSuccess('Captura guardada exitosamente!');
+      } else {
+        this.toastr.showError('La captura no se guardó de forma correcta');
+      }
     }
 
     this.cerrarModalDescarte();
@@ -223,19 +227,19 @@ export class IndexacionComponent implements OnInit {
   }
 
   private fillModalOptions() {
-    this.modalOptions.backdrop = "static";
+    this.modalOptions.backdrop = 'static';
     this.modalOptions.keyboard = false;
   }
 
   getMotivosDescarte() {
     this.motivosDescarte = [];
 
-    let descartesLocal = JSON.parse(localStorage.getItem("descartesLocal"));
+    let descartesLocal = JSON.parse(localStorage.getItem('descartesLocal'));
     if (!descartesLocal) {
       this.descarteService.getDescartes().subscribe((data: {}) => {
         this.motivosDescarte = data;
         localStorage.setItem(
-          "descartesLocal",
+          'descartesLocal',
           JSON.stringify(this.motivosDescarte)
         );
       });
