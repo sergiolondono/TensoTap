@@ -16,17 +16,17 @@ data;
 dataTable: any;
 dtOptions: DataTables.Settings = {};
 modalOptions: NgbModalOptions = {};
-@ViewChild("dataTable", { read: false}) table;
-@ViewChild("modalDetalleCaptura", { read: false}) modalDetalleCaptura: ElementRef;
+@ViewChild('dataTable', { read: false}) table;
+@ViewChild('modalDetalleCaptura', { read: false}) modalDetalleCaptura: ElementRef;
 
-arrayCapturas: any[]=[];
+arrayCapturas: any[] = [];
 
   constructor(private capturasService: CapturasUsuarioService,
-    private toastr: MensajesService,
-    private modalService: NgbModal,
-    private datatableService: DatatableService) { }
+              private toastr: MensajesService,
+              private modalService: NgbModal,
+              private datatableService: DatatableService) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.ObtenerCapturas(true);
    }
 
@@ -38,21 +38,20 @@ arrayCapturas: any[]=[];
       this.data = [];
       this.arrayCapturas = [];
       this.data = data;
-      if(this.data.length){
-        var keys = Object.keys(this.data[0]);      
+      if (this.data.length) {
+        var keys = Object.keys(this.data[0]);
         for (let index = 0; index < keys.length; index++) {
-          this.arrayCapturas.push({ title: keys[index], data: keys[index]});         
+          this.arrayCapturas.push({ title: keys[index], data: keys[index]});
         }
         this.configDataTable();
-      }
-      else{
-        this.toastr.showInfo("No existen capturas del mes actual!");
+      } else {
+        this.toastr.showInfo('No existen capturas del mes actual!');
       }
     });
   }
-  
-  configDataTable(){    
-    this.dtOptions = this.datatableService.configDataTable(this.data, this.arrayCapturas);  
+
+  configDataTable() {
+    this.dtOptions = this.datatableService.configDataTable(this.data, this.arrayCapturas);
     this.dataTable = $(this.table.nativeElement);
     this.dataTable.DataTable(this.dtOptions);
   }

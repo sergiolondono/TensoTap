@@ -10,7 +10,7 @@ import { map, tap, catchError } from 'rxjs/operators';
 export class CalidadService {
 
   endpoint = environment.APIEndpoint + 'Calidad/';
-  
+
   constructor(private http: HttpClient) { }
 
     private extractData(res: Response) {
@@ -38,7 +38,7 @@ export class CalidadService {
     .pipe(
       tap((calidad) => { } ),
       catchError(this.handle_Error)
-    )
+    );
   }
 
   handle_Error(error) {

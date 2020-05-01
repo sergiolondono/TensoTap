@@ -3,36 +3,26 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~ngx-toastr/toastr.css";
 @import "~@ng-select/ng-select/themes/default.theme.css";
-
 @import "~font-awesome/css/font-awesome.css";
-
 body {
-  padding-top: 80px;
-  min-height: 100vh;
-  position: relative;
-  margin: 0;
+    position: relative;
+    margin: 10;
+    min-height: 100vh;
+    padding-top: 65px;
 }
 
 footer {
-  /* position: fixed; */
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-image: linear-gradient(
-    rgb(197, 196, 196),
-    rgb(168, 168, 166),
-    rgb(95, 95, 95),
-    rgb(206, 182, 137)
-  );
-  color: white;
-  text-align: center;
-  clear: both;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    background-image: linear-gradient( rgb(197, 196, 196), rgb(168, 168, 166), rgb(95, 95, 95), rgb(206, 182, 137));
+    color: white;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
 }
 
 .modal-calidad .modal-dialog {
-  width: 90% !important;
-  max-width: calc(90%);
-
+    width: 90% !important;
+    max-width: calc(90%);
 }
-
