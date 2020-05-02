@@ -63,8 +63,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('initConfig', JSON.stringify(this.data));
         localStorage.setItem('token', this.data[0].token);
         localStorage.setItem('user', credentials.userName);
-        // this.router.navigateByUrl('/indexacion');
-         this.router.navigateByUrl('/repcapturas');
+        this.router.navigateByUrl('/indexacion');
       },
       error => {
         const unauthorized_code = 401;

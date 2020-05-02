@@ -32,6 +32,7 @@ export class ReporteCapturadasUsuarioComponent implements OnInit {
     this.loading = false;
     if (this.modelDesde ===  undefined || this.modelHasta === undefined) {
       this.toastr.showWarning('Debe seleccionar un rango de fechas válido');
+      this.loading = true;
       return;
     }
 
