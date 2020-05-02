@@ -42,7 +42,7 @@
     "font-awesome": "^4.7.0",
     "google-charts": "^2.0.0",
     "iv-viewer": "^2.0.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ng-inline-svg": "^9.1.0",
     "ng-multiselect-dropdown": "^0.2.10",
     "ng-recaptcha": "^4.3.0",
