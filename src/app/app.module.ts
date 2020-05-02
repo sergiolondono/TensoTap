@@ -87,8 +87,7 @@ export function tokenGetter() {
     }),
     NgbModule,
     RouterModule.forRoot([
-      // { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-      { path: '', component: ReporteCapturadasComponent, canActivate: [AuthGuard] },
+      { path: '', component: HomeComponent, canActivate: [AuthGuard] },
       { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'registrarse', component: RegisterComponent },
