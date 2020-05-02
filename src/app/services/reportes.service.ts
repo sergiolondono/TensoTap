@@ -28,7 +28,7 @@ export class ReportesService {
       map(this.extractData));
   }
 
-  obtenerImgPendientes(desde, hasta): Observable<any> {
+  obtenerImgPendientes(): Observable<any> {
     return this.http.get(this.endpoint + 'imagenesPendientes').pipe(
       map(this.extractData));
   }

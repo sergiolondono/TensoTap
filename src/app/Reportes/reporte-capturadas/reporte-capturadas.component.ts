@@ -19,6 +19,7 @@ export class ReporteCapturadasComponent implements OnInit {
   modelDesde: NgbDateStruct;
   modelHasta: NgbDateStruct;
   arrayCapturas: any[] = [];
+  loading: boolean;
 
   constructor(private reportesService: ReportesService,
               private toastr: MensajesService,
@@ -28,6 +29,7 @@ export class ReporteCapturadasComponent implements OnInit {
   }
 
   mostrarReporte() {
+    this.loading = false;
     if (this.modelDesde ===  undefined || this.modelHasta === undefined) {
       this.toastr.showWarning('Debe seleccionar un rango de fechas válido');
       return;
@@ -54,6 +56,7 @@ export class ReporteCapturadasComponent implements OnInit {
       } else {
         this.toastr.showInfo('No existen capturas con las fechas seleccionadas!');
       }
+      this.loading = true;
     });
   }
 
