@@ -47,7 +47,7 @@ export class ReportePendientesComponent implements OnInit {
         }
         this.configDataTable();
       } else {
-        this.toastr.showInfo('No existen capturas con las fechas seleccionadas!');
+        this.toastr.showInfo('No se tienen imagenes pendientes por capturar!');
       }
       this.loading = true;
     });
