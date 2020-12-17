@@ -35,7 +35,7 @@
     "bootstrap-multiselect": "^0.9.15",
     "chart.js": "^2.8.0",
     "core-js": "^2.5.4",
-    "datatables.net": "^1.10.19",
+    "datatables.net": "^1.10.22",
     "datatables.net-buttons": "^1.6.1",
     "datatables.net-buttons-dt": "^1.6.1",
     "datatables.net-dt": "^1.10.19",
